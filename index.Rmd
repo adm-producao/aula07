@@ -1,0 +1,187 @@
+---
+title: "Administração da Produção"
+subtitle: "Unidade 05: Plano Mestre de Produção"
+author: 
+  - <br></br>Renata Oliveira
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["slides.css", "xaringan-themer.css"]
+    nature:
+      ratio: "16:9"
+      highlightLines: true
+      highlightStyle: solarized-light
+      countIncrementalSlides: false
+      slideNumberFormat: |
+         <div class="progress-bar-container">
+           <div class="progress-bar" style="width: calc(%current% / %total% * 100%);">
+           </div>
+         </div>
+
+---
+
+```{r child = "setup.Rmd"}
+```
+
+```{r xaringan-tile-view, echo=FALSE}
+xaringanExtra::use_tile_view()
+```
+
+```{r xaringan-editable, echo=FALSE}
+xaringanExtra::use_editable(expires = 1)
+```
+
+```{r xaringanExtra-clipboard, echo=FALSE}
+htmltools::tagList(
+  xaringanExtra::use_clipboard(
+    button_text = "<i class=\"fa fa-clipboard\"></i>",
+    success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\"></i>",
+    error_text = "<i class=\"fa fa-times-circle\" style=\"color: #F94144\"></i>"
+  ),
+  rmarkdown::html_dependency_font_awesome()
+)
+```
+
+```{r xaringan-fit-screen, echo=FALSE}
+xaringanExtra::use_fit_screen()
+```
+
+```{r xaringan-extra-styles, echo=FALSE}
+xaringanExtra::use_extra_styles(
+  hover_code_line = TRUE,         #<<
+  mute_unhighlighted_code = TRUE  #<<
+)
+```
+
+```{r xaringan-scribble, echo=FALSE}
+xaringanExtra::use_scribble()
+```
+
+## Plano Mestre de Produção (PMP)
+
+### Definição e Conceito
+
+O **Plano agregado de produção** é um plano intermediário de produção que estabelece a quantidade total de produtos a serem fabricados em um determinado período. Ele considera a **demanda prevista**, a **capacidade produtiva** da empresa e os **recursos disponíveis**, buscando equilibrar oferta e demanda de forma eficiente.
+
+O ***Plano agregado de produção** fornece um quadro referência para a busca e alocação de recursos: mão-de-obra, equipamentos, materiais, máquinas, horas extras, subcontratações. Esse quadro é apresentado por meio de medidas consolidadas para todos os produtos ou para algumas linhas individualizadas; a implementação efetiva exige que haja uma **desagregação** do planejamento em **produtos individuais**
+
+---
+
+## Plano Mestre de Produção (PMP)
+
+### Definição e Conceito
+
+
+O **Planejamento-Mestre da Produção (PMP)**, também conhecido como MPS (Master Production Schedule), é um **plano detalhado** que estabelece **quanto** e **quando** cada produto final deve ser fabricado em um horizonte de tempo específico. Ele funciona como uma ponte entre o planejamento estratégico (de longo prazo) e a execução operacional (de curto prazo).
+
+O **PMP desagrega o Plano Agregado de Produção em itens específicos**, transformando previsões e pedidos em um **cronograma executável de produção**. É essencialmente uma declaração de compromisso da empresa sobre o que será produzido, considerando capacidade disponível, demanda prevista e recursos necessários.
+
+
+---
+
+## Plano Mestre de Produção (PMP)
+
+### Definição e Conceito
+.large[
+O PMP é um documento que diz **quais itens serão produzidos**, em que **quantidades** e em **quais datas**, servindo como base para o planejamento de recursos, compras e controle de produção.
+]
+---
+
+## Plano Mestre de Produção (PMP)
+
+### Exemplo 1
+
+.pull-left[
+**Fábrica de Bicicletas**   
+Produto: Bicicleta Mountain Bike Modelo X   
+Estoque inicial: 50 unidades   
+Estoque de segurança desejado: 20 unidades   
+Lote de produção: 100 unidades   
+Lead time de produção: 1 semana   
+]
+
+.pull-right[
+| Semana | Previsão | Pedidos Firmes | Maior Valor |
+|--------|----------|----------------|-------------|
+| 1 | 30 | 35 | 35 |
+| 2 | 40 | 25 | 40 |
+| 3 | 35 | 20 | 35 |
+| 4 | 30 | 15 | 30 |
+| 5 | 45 | 10 | 45 |
+]
+
+
+---
+
+## Plano Mestre de Produção (PMP)
+
+### Exemplo 1
+
+| Semana | Demanda | Estoque Inicial | Recebimento (PMP) | Estoque Final | ATP |
+|--------|---------|----------------|-------------------|---------------|-----|
+| 1 | 35 | 50 | - | 15 | 15 |
+| 2 | 40 | 15 | 100 | 75 | 50 |
+| 3 | 35 | 75 | - | 40 | 20 |
+| 4 | 30 | 40 | 100 | 110 | 85 |
+| 5 | 45 | 110 | - | 65 | 55 |
+
+Na semana 1: Estoque suficiente (50 - 35 = 15)   
+Na semana 2: Necessário produzir 100 unidades (estoque cairia para -25 sem produção)   
+Na semana 4: Nova produção programada para manter níveis adequados
+
+---
+
+## Plano Mestre de Produção (PMP)
+
+### Exemplo 2
+
+**Indústria de Móveis**   
+Produto: Mesa de Jantar 6 lugares   
+Estoque inicial: 0 unidades   
+Política: Produzir em lotes de 50 unidades   
+Lead time: 2 semanas 
+
+---
+
+## Plano Mestre de Produção (PMP)
+
+### Exemplo 2
+
+| Semana | Previsão | Pedidos | Demanda Total | Estoque Projetado | PMP |
+|--------|----------|---------|---------------|-------------------|----------------|
+| 1 | 15 | 20 | 20 | 0 → -20 | 50 (semana -1) |
+| 2 | 18 | 12 | 18 | 30 → 12 | - |
+| 3 | 20 | 15 | 20 | 12 → -8 | 50 (semana 1) |
+| 4 | 22 | 10 | 22 | 42 → 20 | - |
+
+
+---
+
+## Plano Mestre de Produção (PMP)
+
+### Exemplo 2
+
+**Decisões:**   
+Produção de 50 unidades deve iniciar 2 semanas antes da necessidade   
+Semana 1 precisa de produção iniciada na semana -1 (antes do período)   
+Semana 3 precisa de produção iniciada na semana 1   
+
+---
+
+## Plano Mestre de Produção (PMP)
+
+### Exemplo 3
+
+
+
+
+
+
+---
+class: center, middle
+
+.huge[
+**DÚVIDAS?**
+]
+
+
