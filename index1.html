@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Administração da Produção</title>
+    <meta charset="utf-8" />
+    <meta name="author" content=" Renata Oliveira" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/font-awesome/css/all.min.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/v4-shims.min.css" rel="stylesheet" />
+    <link href="libs/panelset/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset/panelset.js"></script>
+    <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view/tile-view.js"></script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"x5500f377acd4b028c684c6ccdc91b7f","expires":1}</script>
+    <script src="libs/himalaya/himalaya.js"></script>
+    <script src="libs/js-cookie/js.cookie.js"></script>
+    <link href="libs/editable/editable.css" rel="stylesheet" />
+    <script src="libs/editable/editable.js"></script>
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"<i class=\"fa fa-times-circle\" style=\"color: #F94144\"><\/i>"})</script>
+    <script src="libs/xaringanExtra_fit-screen/fit-screen.js"></script>
+    <link href="libs/xaringanExtra-extra-styles/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <script src="libs/fabric/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
+    <script src="libs/kePrint/kePrint.js"></script>
+    <link href="libs/lightable/lightable.css" rel="stylesheet" />
+    <link href="libs/htmltools-fill/fill.css" rel="stylesheet" />
+    <script src="libs/htmlwidgets/htmlwidgets.js"></script>
+    <script src="libs/viz/viz.js"></script>
+    <link href="libs/DiagrammeR-styles/styles.css" rel="stylesheet" />
+    <script src="libs/grViz-binding/grViz.js"></script>
+    <link rel="stylesheet" href="slides.css" type="text/css" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Administração da Produção
+]
+.subtitle[
+## Unidade 07: Programação da produção
+]
+.author[
+### <br></br>Renata Oliveira
+]
+
+---
+
+
+
+
+
+layout: true
+  
+&lt;div class="my-footer"&gt;
+&lt;span&gt;
+&lt;a href="https://places.education" target="_blank"&gt;https://places.education&lt;/a&gt;
+&lt;/span&gt;
+&lt;/div&gt; 
+
+---
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Objetivos da Aula
+
+.pull-left[
+## O que vamos aprender:
+
+✅ Conceitos fundamentais de programação da produção
+
+✅ Como criar e analisar roteiros de produção
+
+✅ Técnicas de sequenciamento de operações
+
+✅ Métodos de cálculo de carga de máquinas
+
+]
+
+.pull-right[
+## Por que é importante?
+
+- **Eficiência operacional**: Maximizar utilização de recursos
+
+- **Redução de custos**: Minimizar tempos ociosos
+
+- **Cumprimento de prazos**: Planejamento adequado
+
+- **Competitividade**: Otimização dos processos
+]
+
+
+---
+
+# O que é um Roteiro de Produção?
+
+## Definição
+
+O **roteiro de produção** (ou roteiro de fabricação) é um documento técnico que descreve:
+
+.pull-left[
+- **Sequência** de operações necessárias
+- **Máquinas/equipamentos** utilizados
+- **Tempos padrão** de processamento
+- **Ferramentas e dispositivos** necessários
+- **Materiais** consumidos em cada etapa
+]
+
+.pull-right[
+- **Especificações técnicas** de cada operação
+- **Inspeções** de qualidade
+- **Movimentações** entre postos
+- **Precedências** entre operações
+]
+
+---
+
+# Componentes de um Roteiro
+
+
+---
+
+# Exemplo Prático: Roteiro de Produção
+
+**Produto:** Eixo Mecânico  
+**Material:** Aço 1045  
+**Quantidade:** 100 unidades
+
+
+---
+
+# Visualizando o Roteiro
+
+
+---
+
+# Sequenciamento: Conceitos Fundamentais
+
+## O que é?
+
+Processo de **determinar a ordem** em que os trabalhos/tarefas serão processados nas máquinas disponíveis.
+
+## Objetivos Principais:
+
+.pull-left[
+- ⏱️ **Minimizar tempo total** (makespan)
+- 📅 **Cumprir prazos** de entrega
+- 💰 **Reduzir custos** de estoque
+]
+
+.pull-right[
+- ⚙️ **Maximizar utilização** de máquinas
+- 📊 **Balancear carga** de trabalho
+- 🎯 **Minimizar atrasos**
+]
+
+---
+
+# Regras de Sequenciamento
+
+---
+
+# Exemplo Prático: Sequenciamento SPT
+
+
+---
+
+# Análise do Sequenciamento SPT
+                               
+
+
+---
+
+# Gráfico de Gantt - Sequenciamento
+
+---
+
+class: inverse, center, middle
+
+# Parte 3
+## Carga de Máquinas
+
+---
+
+# Carga de Máquinas: Conceito
+
+## Definição
+
+**Carga de máquinas** é o processo de:
+
+- Alocar ordens de produção aos centros de trabalho
+- Calcular a **capacidade necessária** vs **capacidade disponível**
+- Identificar **gargalos** e **ociosidades**
+- Balancear a distribuição do trabalho
+
+## Tipos de Carga:
+
+.pull-left[
+### Carga Finita
+- Respeita capacidade máxima
+- Considera restrições reais
+- Mais realista
+]
+
+.pull-right[
+### Carga Infinita
+- Ignora restrições
+- Planejamento inicial
+- Identifica necessidades
+]
+
+---
+
+# Cálculo de Carga de Máquinas
+
+## Fórmula Básica:
+
+`$$\text{Carga Total} = \sum_{i=1}^{n} (T_{setup_i} + T_{proc_i} \times Q_i)$$`
+
+Onde:
+- `\(T_{setup_i}\)` = Tempo de setup da ordem `\(i\)`
+- `\(T_{proc_i}\)` = Tempo de processamento unitário da ordem `\(i\)`
+- `\(Q_i\)` = Quantidade de peças da ordem `\(i\)`
+- `\(n\)` = Número de ordens
+
+## Taxa de Utilização:
+
+`$$\text{Utilização (\%)} = \frac{\text{Carga Total}}{\text{Capacidade Disponível}} \times 100$$`
+
+---
+
+# Exemplo Prático: Carga de Máquinas
+
+---
+
+# Análise de Carga por Máquina
+
+---
+
+# Visualização da Carga de Máquinas
+
+---
+
+# Distribuição da Carga: Setup vs Processamento
+
+---
+
+# Balanceamento de Carga
+
+## Estratégias para Otimizar:
+
+.pull-left[
+### Quando há Sobrecarga:
+- 🔄 **Realocação** de ordens
+- ⏰ **Horas extras** programadas
+- 👥 **Subcontratação** externa
+- 📅 **Reprogramação** de prazos
+- 🆕 **Investimento** em capacidade
+]
+
+.pull-right[
+### Quando há Ociosidade:
+- 📦 **Antecipação** de produção
+- 🔧 **Manutenção preventiva**
+- 📚 **Treinamento** de equipe
+- 🎯 **Melhorias** de processo
+- 🔍 **Busca** de novos pedidos
+]
+
+---
+
+# Análise de Gargalos
+
+---
+
+class: inverse, center, middle
+
+# Estudo de Caso Integrado
+
+---
+
+# Caso Completo: Fábrica de Componentes
+
+## Situação:
+Uma fábrica recebeu 5 pedidos urgentes que devem ser processados em 3 máquinas diferentes.
+
+---
+
+# Solução: Sequenciamento por Prioridade
+
+---
+
+# Solução: Carga de Máquinas
+
+---
+
+# Resultados e Recomendações
+
+## Análise:
+
+
+## Recomendações:
+- ✅ Priorizar setup reduzido na máquina gargalo
+- ✅ Considerar horas extras para pedidos urgentes
+- ✅ Monitorar continuamente a carga da M1
+
+---
+
+class: inverse, center, middle
+
+# Exercícios Práticos
+
+---
+
+# Exercício 1: Criar seu Roteiro
+
+## Desafio:
+Crie um roteiro de produção para fabricar um **suporte metálico** com as seguintes operações:
+
+1. Cortar chapa (Serra)
+2. Dobrar 90° (Dobradeira)
+3. Soldar cantos (Solda MIG)
+4. Lixar rebarbas (Lixadeira)
+5. Pintar (Cabine)
+
+**Estime:**
+- Tempos de setup
+- Tempos de processamento
+- Identifique precedências
+
+---
+
+# Exercício 2: Sequenciamento
+
+
+## Sua tarefa:
+1. Aplique as regras: **SPT**, **EDD** e **Prioridade**
+2. Calcule makespan e atraso médio para cada regra
+3. Qual regra é melhor para este caso?
+
+---
+
+# Exercício 3: Análise de Carga
+
+
+
+## Sua tarefa:
+1. Calcule a carga total por máquina
+2. Identifique gargalos (capacidade: 160h/mês)
+3. Proponha soluções
+
+---
+
+class: inverse, center, middle
+
+# Ferramentas e Softwares
+
+---
+
+# Softwares para Programação da Produção
+
+.pull-left[
+## Softwares Comerciais
+- **SAP PP** - Planejamento e Controle
+- **Oracle SCM** - Supply Chain
+- **Preactor APS** - Scheduling avançado
+- **Siemens Opcenter** - MES integrado
+- **AspenTech** - Otimização
+
+## Open Source / R
+- **simmer** - Simulação discreta
+- **rDEA** - Análise de eficiência
+- **optaplanner** - Otimização
+- **scheduleR** - Scheduling
+]
+
+.pull-right[
+## Planilhas e Ferramentas Leves
+- **Excel** com Solver
+- **Google Sheets** + Scripts
+- **Microsoft Project**
+- **Ganttify**
+- **Monday.com**
+
+## Vantagens do R
+✅ Gratuito e código aberto
+✅ Flexibilidade total
+✅ Reprodutibilidade
+✅ Visualizações avançadas
+✅ Integração com outros sistemas
+]
+
+---
+
+# Exemplo em R: Simulação Simples
+
+---
+
+# Análise da Simulação
+
+---
+
+class: inverse, center, middle
+
+# Boas Práticas
+
+---
+
+# Princípios para Boa Programação
+
+.pull-left[
+## Planejamento
+✅ **Dados precisos**: Tempos, capacidades, restrições
+
+✅ **Comunicação**: Entre PCP, produção e vendas
+
+✅ **Flexibilidade**: Prever contingências
+
+✅ **Documentação**: Registrar decisões e mudanças
+
+## Execução
+✅ **Monitoramento**: Acompanhar progresso real
+
+✅ **Agilidade**: Reagir a imprevistos
+
+✅ **Priorização**: Focar no crítico
+]
+
+.pull-right[
+## Análise
+✅ **KPIs claros**: OEE, utilização, pontualidade
+
+✅ **Revisões**: Analisar desvios periodicamente
+
+✅ **Melhoria contínua**: Ajustar métodos
+
+## Tecnologia
+✅ **Automatização**: Reduzir trabalho manual
+
+✅ **Integração**: Sistemas conversando
+
+✅ **Visualização**: Dashboards em tempo real
+
+✅ **Backup**: Planos B e C
+]
+
+---
+
+# Principais KPIs
+
+---
+
+# Checklist de Programação
+
+## Antes de Programar:
+- [ ] Todos os pedidos confirmados estão no sistema?
+- [ ] Roteiros de produção atualizados?
+- [ ] Capacidade das máquinas verificada?
+- [ ] Materiais disponíveis conferidos?
+- [ ] Ferramental em condições?
+
+## Durante a Programação:
+- [ ] Prioridades definidas claramente?
+- [ ] Restrições consideradas (precedências, calendário)?
+- [ ] Gargalos identificados e tratados?
+- [ ] Balanceamento de carga verificado?
+
+## Após Programar:
+- [ ] Programa comunicado à produção?
+- [ ] Contingências planejadas?
+- [ ] Sistema de acompanhamento ativo?
+
+---
+
+class: inverse, center, middle
+
+# Resumo da Aula
+
+---
+
+# Principais Conceitos
+
+## 📋 Roteiro de Produção
+- Documento técnico que define **sequência**, **máquinas**, **tempos** e **precedências**
+- Base para planejamento e controle
+- Deve ser mantido atualizado
+
+## 🔢 Sequenciamento
+- Ordem de execução das tarefas
+- Regras: **SPT**, **EDD**, **FCFS**, **CR**, etc.
+- Impacto direto em **prazos** e **custos**
+
+## ⚙️ Carga de Máquinas
+- Balanceamento entre **demanda** e **capacidade**
+- Identificação de **gargalos** e **ociosidades**
+- Decisões sobre **horas extras**, **subcontratação**, **investimentos**
+
+---
+
+# Ferramentas Apresentadas
+
+## 🔧 Práticas
+- Cálculo manual de sequenciamento
+- Planilhas de carga de máquinas
+- Diagramas de Gantt
+- Análise de KPIs
+
+
+## 📊 Analíticas
+- Métricas de desempenho
+- Identificação de gargalos
+- Simulação de cenários
+- Otimização de decisões
+
+---
+
+# Para Saber Mais
+
+## 📚 Livros Recomendados
+- **Administração da Produção** - Slack, Chambers &amp; Johnston
+- **Factory Physics** - Hopp &amp; Spearman  
+- **Theory of Constraints** - Goldratt
+- **Scheduling** - Pinedo
+
+## 🌐 Recursos Online
+- APICS (Association for Supply Chain Management)
+- ISE Magazine (Institute of Industrial Engineers)
+- R for Operations Research
+- Coursera: Operations Management
+
+## 🎓 Próximos Passos
+- Simulação de eventos discretos
+- Programação linear e otimização
+- Teoria das Restrições (TOC)
+
+
+---
+class: center, middle
+
+.huge[
+**DÚVIDAS?**
+]
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+  "ratio": "16:9",
+  "highlightLines": true,
+  "highlightStyle": "solarized-light",
+  "countIncrementalSlides": false,
+  "slideNumberFormat": "<div class=\"progress-bar-container\">\n  <div class=\"progress-bar\" style=\"width: calc(%current% / %total% * 100%);\">\n  </div>\n</div>\n"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

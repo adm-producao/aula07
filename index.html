@@ -11,7 +11,7 @@
     <script src="libs/panelset/panelset.js"></script>
     <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
     <script src="libs/tile-view/tile-view.js"></script>
-    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"a15ef00764514ec48cc57c5bc50c276b","expires":1}</script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"xfbc46fe4f8b4e7988abe9bcaea03d4b","expires":1}</script>
     <script src="libs/himalaya/himalaya.js"></script>
     <script src="libs/js-cookie/js.cookie.js"></script>
     <link href="libs/editable/editable.css" rel="stylesheet" />
@@ -26,6 +26,8 @@
     <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
     <script src="libs/xaringanExtra-scribble/scribble.js"></script>
     <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
+    <script src="libs/kePrint/kePrint.js"></script>
+    <link href="libs/lightable/lightable.css" rel="stylesheet" />
     <link rel="stylesheet" href="slides.css" type="text/css" />
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
@@ -37,7 +39,7 @@ class: center, middle, inverse, title-slide
 # Administração da Produção
 ]
 .subtitle[
-## Unidade 05: Plano Mestre de Produção
+## Unidade 07: Programação da produção
 ]
 .author[
 ### <br></br>Renata Oliveira
@@ -71,124 +73,1042 @@ layout: true
 
 
 
-## Plano Mestre de Produção (PMP)
-
-### Definição e Conceito
-
-O **Plano agregado de produção** é um plano intermediário de produção que estabelece a quantidade total de produtos a serem fabricados em um determinado período. Ele considera a **demanda prevista**, a **capacidade produtiva** da empresa e os **recursos disponíveis**, buscando equilibrar oferta e demanda de forma eficiente.
-
-O ***Plano agregado de produção** fornece um quadro referência para a busca e alocação de recursos: mão-de-obra, equipamentos, materiais, máquinas, horas extras, subcontratações. Esse quadro é apresentado por meio de medidas consolidadas para todos os produtos ou para algumas linhas individualizadas; a implementação efetiva exige que haja uma **desagregação** do planejamento em **produtos individuais**
-
----
-
-## Plano Mestre de Produção (PMP)
-
-### Definição e Conceito
 
 
-O **Planejamento-Mestre da Produção (PMP)**, também conhecido como MPS (Master Production Schedule), é um **plano detalhado** que estabelece **quanto** e **quando** cada produto final deve ser fabricado em um horizonte de tempo específico. Ele funciona como uma ponte entre o planejamento estratégico (de longo prazo) e a execução operacional (de curto prazo).
 
-O **PMP desagrega o Plano Agregado de Produção em itens específicos**, transformando previsões e pedidos em um **cronograma executável de produção**. É essencialmente uma declaração de compromisso da empresa sobre o que será produzido, considerando capacidade disponível, demanda prevista e recursos necessários.
-
-
----
-
-## Plano Mestre de Produção (PMP)
-
-### Definição e Conceito
-.large[
-O PMP é um documento que diz **quais itens serão produzidos**, em que **quantidades** e em **quais datas**, servindo como base para o planejamento de recursos, compras e controle de produção.
-]
----
-
-## Plano Mestre de Produção (PMP)
-
-### Exemplo 1
+# Objetivos da Aula
 
 .pull-left[
-**Fábrica de Bicicletas**   
-Produto: Bicicleta Mountain Bike Modelo X   
-Estoque inicial: 50 unidades   
-Estoque de segurança desejado: 20 unidades   
-Lote de produção: 100 unidades   
-Lead time de produção: 1 semana   
+## O que vamos aprender:
+
+✅ Conceitos fundamentais de programação da produção
+
+✅ Como criar e analisar roteiros de produção
+
+✅ Técnicas de sequenciamento de operações
+
+✅ Métodos de cálculo de carga de máquinas
+
 ]
 
 .pull-right[
-| Semana | Previsão | Pedidos Firmes | Maior Valor |
-|--------|----------|----------------|-------------|
-| 1 | 30 | 35 | 35 |
-| 2 | 40 | 25 | 40 |
-| 3 | 35 | 20 | 35 |
-| 4 | 30 | 15 | 30 |
-| 5 | 45 | 10 | 45 |
+## Por que é importante?
+
+- **Eficiência operacional**: Maximizar utilização de recursos
+
+- **Redução de custos**: Minimizar tempos ociosos
+
+- **Cumprimento de prazos**: Planejamento adequado
+
+- **Competitividade**: Otimização dos processos
 ]
 
 
 ---
 
-## Plano Mestre de Produção (PMP)
+# O que é um Roteiro de Produção?
 
-### Exemplo 1
+## Definição
 
-| Semana | Demanda | Estoque Inicial | Recebimento (PMP) | Estoque Final | ATP |
-|--------|---------|----------------|-------------------|---------------|-----|
-| 1 | 35 | 50 | - | 15 | 15 |
-| 2 | 40 | 15 | 100 | 75 | 50 |
-| 3 | 35 | 75 | - | 40 | 20 |
-| 4 | 30 | 40 | 100 | 110 | 85 |
-| 5 | 45 | 110 | - | 65 | 55 |
+O **roteiro de produção** (ou roteiro de fabricação) é um documento técnico que descreve:
 
-Na semana 1: Estoque suficiente (50 - 35 = 15)   
-Na semana 2: Necessário produzir 100 unidades (estoque cairia para -25 sem produção)   
-Na semana 4: Nova produção programada para manter níveis adequados
+.pull-left[
+- **Sequência** de operações necessárias
+- **Máquinas/equipamentos** utilizados
+- **Tempos padrão** de processamento
+- **Ferramentas e dispositivos** necessários
+- **Materiais** consumidos em cada etapa
+]
 
----
-
-## Plano Mestre de Produção (PMP)
-
-### Exemplo 2
-
-**Indústria de Móveis**   
-Produto: Mesa de Jantar 6 lugares   
-Estoque inicial: 0 unidades   
-Política: Produzir em lotes de 50 unidades   
-Lead time: 2 semanas 
+.pull-right[
+- **Especificações técnicas** de cada operação
+- **Inspeções** de qualidade
+- **Movimentações** entre postos
+- **Precedências** entre operações
+]
 
 ---
 
-## Plano Mestre de Produção (PMP)
+# Componentes de um Roteiro
 
-### Exemplo 2
+&lt;table class="table table-striped table-hover" style="font-size: 30px; color: black; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Componente &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Descrição &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Exemplo &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Operação &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Descrição da atividade a ser executada &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Tornear eixo Ø50mm &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Posto de Trabalho &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Máquina ou centro de trabalho responsável &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Torno CNC 01 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Tempo Setup &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Tempo de preparação da máquina (min) &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 15 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Tempo Unitário &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Tempo de processamento por unidade (min) &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3.5 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Ferramental &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Ferramentas e dispositivos &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Placa 3 castanhas &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Precedência &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Operações que devem ser concluídas antes &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; OP 010 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 
-| Semana | Previsão | Pedidos | Demanda Total | Estoque Projetado | PMP |
-|--------|----------|---------|---------------|-------------------|----------------|
-| 1 | 15 | 20 | 20 | 0 → -20 | 50 (semana -1) |
-| 2 | 18 | 12 | 18 | 30 → 12 | - |
-| 3 | 20 | 15 | 20 | 12 → -8 | 50 (semana 1) |
-| 4 | 22 | 10 | 22 | 42 → 20 | - |
+---
+
+# Exemplo Prático: Roteiro de Produção
+
+**Produto:** Eixo Mecânico  
+**Material:** Aço 1045  
+**Quantidade:** 100 unidades
+
+&lt;table class="table table-striped table-hover" style="font-size: 20px; color: black; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Op &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Descrição &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Máquina &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Setup (min) &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Tempo Unit. (min) &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Precedência &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 010 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Cortar barra &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Serra &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; - &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 020 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Tornear desbaste &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Torno CNC-01 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 20 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8.5 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 010 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 030 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Tornear acabamento &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Torno CNC-01 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 020 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 040 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Furar centro &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Furadeira &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 030 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 050 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Inspeção dimensional &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Sala metrologia &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.5 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 040 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 
 
 ---
 
-## Plano Mestre de Produção (PMP)
+# Sequenciamento: Conceitos Fundamentais
 
-### Exemplo 2
+## O que é?
 
-**Decisões:**   
-Produção de 50 unidades deve iniciar 2 semanas antes da necessidade   
-Semana 1 precisa de produção iniciada na semana -1 (antes do período)   
-Semana 3 precisa de produção iniciada na semana 1   
+Processo de **determinar a ordem** em que os trabalhos/tarefas serão processados nas máquinas disponíveis.
+
+## Objetivos Principais:
+
+.pull-left[
+- ⏱️ **Minimizar tempo total** (makespan)
+- 📅 **Cumprir prazos** de entrega
+- 💰 **Reduzir custos** de estoque
+]
+
+.pull-right[
+- ⚙️ **Maximizar utilização** de máquinas
+- 📊 **Balancear carga** de trabalho
+- 🎯 **Minimizar atrasos**
+]
 
 ---
 
-## Plano Mestre de Produção (PMP)
+# Regras de Sequenciamento
+&lt;table class="table table-striped table-hover" style="font-size: 30px; color: black; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Regra &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Nome &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Característica &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Aplicação &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(52, 152, 219, 255) !important;"&gt; FIFO &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Primeiro a Entrar, Primeiro a Sair &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Ordem de chegada das tarefas &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Simples e justo &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(52, 152, 219, 255) !important;"&gt; MTP &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Menor Tempo de Processamento &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Menor tempo de processamento primeiro &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; ↓ Tempo médio na fila &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(52, 152, 219, 255) !important;"&gt; MDE &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Menor Data de Entrega &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Menor data de entrega primeiro &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; ↓ Atraso máximo &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(52, 152, 219, 255) !important;"&gt; MFE &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Menor Folga Estática &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Menor tempo de folga primeiro &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Urgência baseada em folga &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 
-### Exemplo 3
+A folga estática para um pedido i é calculada no momento inicial (tempo t=0) com a fórmula:
+
+`$$\text{Folga Estática}_i = \text{Data de Entrega}_i - \text{Tempo Atual} - \text{Tempo de Processamento}_i$$`
+---
+
+# Exemplo Prático: Sequenciamento MTP
+&lt;table class="table table-striped table-hover" style="font-size: 30px; color: black; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Job &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Tempo_Proc &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Data_Entrega &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Inicio &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Fim &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Atraso &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(52, 152, 219, 255) !important;"&gt; B &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(52, 152, 219, 255) !important;"&gt; E &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(52, 152, 219, 255) !important;"&gt; C &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 20 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(52, 152, 219, 255) !important;"&gt; A &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 23 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(52, 152, 219, 255) !important;"&gt; D &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 25 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 23 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 35 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+# Análise do Sequenciamento MTP
+                               
+&lt;table class="table table-striped table-hover" style="font-size: 30px; color: black; width: auto !important; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Métrica &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Valor &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Makespan (tempo total) &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 35.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Tempo médio de fluxo &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Atraso médio &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.6 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Número de trabalhos atrasados &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Utilização (%) &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 100.0 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+# Gráfico de Gantt - Sequenciamento
+&lt;img src="index_files/figure-html/gantt-chart-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Carga de Máquinas: Conceito
+
+## Definição
+
+**Carga de máquinas** é o processo de:
+
+- Alocar ordens de produção aos centros de trabalho
+- Calcular a **capacidade necessária** vs **capacidade disponível**
+- Identificar **gargalos** e **ociosidades**
+- Balancear a distribuição do trabalho
+
+---
+
+# Carga de Máquinas: Conceito
+
+## Tipos de Carga:
+
+.pull-left[
+### Carga Finita
+- Respeita capacidade máxima
+- Considera restrições reais
+- Mais realista
+]
+
+.pull-right[
+### Carga Infinita
+- Ignora restrições
+- Planejamento inicial
+- Identifica necessidades
+]
+
+---
+
+# Cálculo de Carga de Máquinas
+
+## Fórmula Básica:
+
+`$$\text{Carga Total} = \sum_{i=1}^{n} (T_{setup_i} + T_{proc_i} \times Q_i)$$`
+
+Onde:
+- `\(T_{setup_i}\)` = Tempo de setup da ordem `\(i\)`
+- `\(T_{proc_i}\)` = Tempo de processamento unitário da ordem `\(i\)`
+- `\(Q_i\)` = Quantidade de peças da ordem `\(i\)`
+- `\(n\)` = Número de ordens
+
+---
+
+# Cálculo de Carga de Máquinas
+
+## Taxa de Utilização:
+
+`$$\text{Utilização (%)} = \frac{\text{Carga Total}}{\text{Capacidade Disponível}} \times 100$$`
+
+---
+
+# Exemplo Prático: Carga de Máquinas
+&lt;table class="table table-striped table-hover" style="font-size: 25px; color: black; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Ordem &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Produto &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Maquina &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Setup_h &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Tempo_Unit_h &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Quantidade &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Carga_Total_h &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Carga_Setup_h &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Carga_Proc_h &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(52, 152, 219, 255) !important;"&gt; OP-001 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Eixo A &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Torno-01 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.50 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.15 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 50 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8.00 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.50 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7.5 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(52, 152, 219, 255) !important;"&gt; OP-002 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Polia B &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Torno-01 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.75 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.20 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 30 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6.75 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.75 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(52, 152, 219, 255) !important;"&gt; OP-003 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Eixo A &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Torno-02 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.50 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.15 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 100 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15.50 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.50 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(52, 152, 219, 255) !important;"&gt; OP-004 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Flange C &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Fresa-01 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.00 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.30 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 20 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7.00 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.00 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(52, 152, 219, 255) !important;"&gt; OP-005 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Polia B &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Torno-02 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.75 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.20 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 40 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8.75 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.75 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8.0 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+---
+
+# Análise de Carga por Máquina
+&lt;table class="table table-striped table-hover" style="font-size: 20px; color: black; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Maquina &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Num_Ordens &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Carga_Total_h &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Carga_Setup_h &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Carga_Proc_h &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Capacidade_Semanal_h &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Utilizacao_pct &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Status &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(52, 152, 219, 255) !important;"&gt; Fresa-01 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7.00 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.00 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 40 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 17.5 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 🟢 Normal &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(52, 152, 219, 255) !important;"&gt; Torno-01 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14.75 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.25 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13.5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 40 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 36.9 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 🟢 Normal &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(52, 152, 219, 255) !important;"&gt; Torno-02 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 24.25 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.25 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 23.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 40 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 60.6 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 🟢 Normal &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+---
+
+# Visualização da Carga de Máquinas
+&lt;img src="index_files/figure-html/plot-carga-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+---
+
+# Distribuição da Carga: Setup vs Processamento
+&lt;img src="index_files/figure-html/carga-composicao-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+---
+
+# Balanceamento de Carga
+
+## Estratégias para Otimizar:
+
+.pull-left[
+### Quando há Sobrecarga:
+- 🔄 **Realocação** de ordens
+- ⏰ **Horas extras** programadas
+- 👥 **Subcontratação** externa
+- 📅 **Reprogramação** de prazos
+- 🆕 **Investimento** em capacidade
+]
+
+.pull-right[
+### Quando há Ociosidade:
+- 📦 **Antecipação** de produção
+- 🔧 **Manutenção preventiva**
+- 📚 **Treinamento** de equipe
+- 🎯 **Melhorias** de processo
+- 🔍 **Busca** de novos pedidos
+]
+
+---
+
+# Análise de Gargalos
+&lt;table class="table table-striped table-hover" style="font-size: 30px; color: black; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Máquina &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Utilização (%) &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Déficit (h) &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Recomendação &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Torno-02 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 60.6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Operação normal &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Torno-01 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 36.9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Verificar oportunidades &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Fresa-01 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 17.5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Verificar oportunidades &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+---
+
+# Caso Completo: Fábrica de Componentes
+
+.pull-left[
+Uma fábrica recebeu 5 pedidos urgentes que devem ser processados em 3 máquinas diferentes.]
+
+.pull-right[
+&lt;table class="table table-striped table-hover" style="font-size: 15px; color: black; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Pedido &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Operacao &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Maquina &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Setup_h &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Proc_h &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(52, 152, 219, 255) !important;"&gt; P1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; M1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(52, 152, 219, 255) !important;"&gt; P1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; M2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.5 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(52, 152, 219, 255) !important;"&gt; P1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; M3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(52, 152, 219, 255) !important;"&gt; P2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; M1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(52, 152, 219, 255) !important;"&gt; P2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; M2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.8 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(52, 152, 219, 255) !important;"&gt; P2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; M3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.2 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(52, 152, 219, 255) !important;"&gt; P3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; M1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.8 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(52, 152, 219, 255) !important;"&gt; P3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; M2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.2 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(52, 152, 219, 255) !important;"&gt; P3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; M3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.5 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(52, 152, 219, 255) !important;"&gt; P4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; M1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.5 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(52, 152, 219, 255) !important;"&gt; P4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; M2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(52, 152, 219, 255) !important;"&gt; P4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; M3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(52, 152, 219, 255) !important;"&gt; P5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; M1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(52, 152, 219, 255) !important;"&gt; P5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; M2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.5 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(52, 152, 219, 255) !important;"&gt; P5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; M3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.5 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+---
+
+# Solução: Sequenciamento por Prioridade
+&lt;table class="table table-striped table-hover" style="font-size: 20px; color: black; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Pedido &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Tempo_Total_h &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Cliente &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Prazo_dias &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Prioridade &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Ordem_Exec &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Inicio_h &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Fim_h &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Prazo_h &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Atraso_h &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(52, 152, 219, 255) !important;"&gt; P2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Beta &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 24 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(52, 152, 219, 255) !important;"&gt; P4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5.0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Gamma &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 32 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(52, 152, 219, 255) !important;"&gt; P1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5.7 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Alpha &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9.2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14.9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 40 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(52, 152, 219, 255) !important;"&gt; P5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7.2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Delta &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14.9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 22.1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 40 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(52, 152, 219, 255) !important;"&gt; P3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6.7 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Alpha &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 22.1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 28.8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 48 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+---
+
+# Solução: Carga de Máquinas
+&lt;img src="index_files/figure-html/caso-carga-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+---
+
+# Resultados e Recomendações
+
+## Análise:
+&lt;table class="table table-striped table-hover" style="font-size: 20px; color: black; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Métrica &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Valor &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Avaliação &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Makespan Total &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 28.8 horas &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Dentro do esperado &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Taxa Média de Utilização &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 24% &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Boa utilização &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Pedidos no Prazo &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 5/5 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Atende maioria &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Atraso Médio &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0 horas &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Aceitável &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Gargalo Identificado &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; M1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Requer atenção &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+.midi[
+## Recomendações:
+- ✅ Priorizar setup reduzido na máquina gargalo
+- ✅ Considerar horas extras para pedidos urgentes
+- ✅ Monitorar continuamente a carga da M1
+]
+
+---
 
 
+# Softwares para Programação da Produção
 
+.midi[
 
+.pull-left[
+## Softwares Comerciais
+- **SAP PP** - Planejamento e Controle
+- **Oracle SCM** - Supply Chain
+- **Preactor APS** - Scheduling avançado
+- **AspenTech** - Otimização
+
+## Open Source / R
+- **simmer** - Simulação discreta
+- **rDEA** - Análise de eficiência
+- **optaplanner** - Otimização
+- **scheduleR** - Scheduling
+]
+
+.pull-right[
+## Planilhas e Ferramentas Leves
+- **Excel** com Solver
+- **Google Sheets** + Scripts
+- **Microsoft Project**
+- **Ganttify**
+- **Monday.com**
+
+]
+]
+
+---
+
+# Princípios para Boa Programação
+
+.midi[
+.pull-left[
+## Planejamento
+✅ **Dados precisos**: Tempos, capacidades, restrições    
+✅ **Comunicação**: Entre PCP, produção e vendas   
+✅ **Flexibilidade**: Prever contingências   
+✅ **Documentação**: Registrar decisões e mudanças   
+
+## Execução
+✅ **Monitoramento**: Acompanhar progresso real   
+✅ **Agilidade**: Reagir a imprevistos   
+✅ **Priorização**: Focar no crítico   
+]
+
+.pull-right[
+## Análise
+✅ **KPIs claros**: Oilização, pontualidade   
+✅ **Revisões**: Analisar desvios periodicamente   
+✅ **Melhoria contínua**: Ajustar métodos
+
+## Tecnologia
+✅ **Automatização**: Reduzir trabalho manual   
+✅ **Integração**: Sistemas conversando   
+✅ **Visualização**: Dashboards em tempo real   
+✅ **Backup**: Planos B e C
+]
+]
+---
+
+# Principais KPIs
+&lt;table class="table table-striped table-hover" style="font-size: 30px; color: black; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; KPI &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Descrição &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Meta &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Impacto &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Makespan &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Tempo total de produção &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Minimizar &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Prazo total &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Utilização &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; % tempo produtivo / tempo disponível &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; &amp;gt; 80% &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Capacidade &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; OTIF &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; On Time In Full - entregas no prazo e completas &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; &amp;gt; 95% &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Satisfação cliente &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Lead Time &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Tempo do pedido até entrega &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Reduzir &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Agilidade &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; WIP &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Work In Process - estoque em processo &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Minimizar &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Capital parado &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Setup Time &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Tempo médio de preparação de máquinas &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; &amp;lt; 10% do ciclo &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Flexibilidade &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+---
+
+# Checklist de Programação
+.midi[
+.pull-left[
+## Antes de Programar:
+- [ ] Todos os pedidos confirmados estão no sistema?
+- [ ] Roteiros de produção atualizados?
+- [ ] Capacidade das máquinas verificada?
+- [ ] Materiais disponíveis conferidos?
+- [ ] Ferramental em condições?
+]
+
+.pull-right[
+## Durante a Programação:
+- [ ] Prioridades definidas claramente?
+- [ ] Restrições consideradas (precedências, calendário)?
+- [ ] Gargalos identificados e tratados?
+- [ ] Balanceamento de carga verificado?
+
+## Após Programar:
+- [ ] Programa comunicado à produção?
+- [ ] Contingências planejadas?
+- [ ] Sistema de acompanhamento ativo?
+]]
+---
+
+# Principais Conceitos
+.midi[
+.pull-left[
+## 📋 Roteiro de Produção
+- Documento técnico que define **sequência**, **máquinas**, **tempos** e **precedências**
+- Base para planejamento e controle
+- Deve ser mantido atualizado
+
+## 🔢 Sequenciamento
+- Ordem de execução das tarefas
+- Regras: **MTP**, **FIFO**, **MDE**, **MFE**, etc.
+- Impacto direto em **prazos** e **custos**
+]
+.pull-right[
+## ⚙️ Carga de Máquinas
+- Balanceamento entre **demanda** e **capacidade**
+- Identificação de **gargalos** e **ociosidades**
+- Decisões sobre **horas extras**, **subcontratação**, **investimentos**
+]]
+---
+
+# Ferramentas Apresentadas
+.midi[
+.pull-left[
+## 🔧 Práticas
+- Cálculo manual de sequenciamento
+- Planilhas de carga de máquinas
+- Diagramas de Gantt
+- Análise de KPIs
+]
+.pull-right[
+
+## 📊 Analíticas
+- Métricas de desempenho
+- Identificação de gargalos
+- Simulação de cenários
+- Otimização de decisões
+]]
+---
+
+# Para Saber Mais
+
+.midi[
+.pull-left[
+## 📚 Livros Recomendados
+- **Administração da Produção** - Slack, Chambers &amp; Johnston
+- **Factory Physics** - Hopp &amp; Spearman  
+- **Theory of Constraints** - Goldratt
+- **Scheduling** - Pinedo
+]
+.pull-right[
+
+## 🌐 Recursos Online
+- APICS (Association for Supply Chain Management)
+- ISE Magazine (Institute of Industrial Engineers)
+- R for Operations Research
+- Coursera: Operations Management
+
+## 🎓 Próximos Passos
+- Simulação de eventos discretos
+- Programação linear e otimização
+- Teoria das Restrições (TOC)
+]]
 
 
 ---
