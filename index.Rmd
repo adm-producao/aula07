@@ -1053,10 +1053,44 @@ analise %>% kable(format = "html") %>% kable_styling(bootstrap_options = c("stri
 
 # Principais KPIs
 ```{r kpis, echo=FALSE, message=FALSE, warning=FALSE} 
-kpis <- data.frame( KPI = c("Makespan", "Utilização", "OTIF", "Lead Time", "WIP", "Setup Time"), Descrição = c("Tempo total de produção", "% tempo produtivo / tempo disponível", "On Time In Full - entregas no prazo e completas", "Tempo do pedido até entrega", "Work In Process - estoque em processo", "Tempo médio de preparação de máquinas"), Meta = c( "Minimizar", "> 80%", "> 95%", "Reduzir", "Minimizar", "< 10% do ciclo"), Impacto = c("Prazo total", "Capacidade", "Satisfação cliente", "Agilidade", "Capital parado", "Flexibilidade") )
+kpis <- data.frame(
+  KPI = c("Makespan", "Utilização", "OTIF", "Lead Time", "WIP", "Setup Time"),
+  Descrição = c(
+    "Tempo total de produção",
+    "% tempo produtivo / tempo disponível",
+    "On Time In Full - entregas no prazo e completas",
+    "Tempo do pedido até entrega",
+    "Work In Process - estoque em processo",
+    "Tempo médio de preparação de máquinas"
+  ),
+  Meta = c(
+    "Minimizar",
+    "Faixa por recurso",
+    "> 95%",
+    "Reduzir",
+    "Minimizar",
+    "< 10% do ciclo"
+  ),
+  Impacto = c(
+    "Prazo total",
+    "Capacidade e fluxo",
+    "Satisfação cliente",
+    "Agilidade",
+    "Capital parado",
+    "Flexibilidade"
+  )
+)
 
-kpis %>% kable(format = "html") %>% kable_styling(bootstrap_options = c("striped", "hover"), font_size = 30)
+kpis %>%
+  kable(format = "html", table.attr = 'class="kpi-table"') %>%
+  kable_styling(bootstrap_options = c("striped", "hover"), font_size = 27)
 ```
+
+.utilization-guidance[**Utilização depende do papel do recurso.** No gargalo, busca-se utilização elevada e protegida. Nos demais recursos, alguma capacidade ociosa pode ser necessária para manter o fluxo e responder a imprevistos.]
+
+???
+
+Uma meta única, como 80%, pode induzir decisões inadequadas. O gargalo determina a saída do sistema e deve permanecer produtivo. Recursos não gargalo precisam de folga para absorver variabilidade sem aumentar filas e estoque em processo.
 ---
 
 # Checklist de Programação

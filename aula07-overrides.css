@@ -233,6 +233,34 @@ table.dataTable.display tbody tr.even {
   background: #eef6f8 !important;
 }
 
+/* KPIs: tabela compacta e orientação contextual sobre utilização. */
+.remark-slide table.kpi-table {
+  font-size: 0.72em !important;
+  line-height: 1.04;
+  margin-bottom: 0.28rem;
+}
+
+.remark-slide table.kpi-table th,
+.remark-slide table.kpi-table td {
+  padding: 0.2rem 0.38rem !important;
+}
+
+.utilization-guidance {
+  box-sizing: border-box;
+  width: 100%;
+  margin-top: 0.18rem;
+  padding: 0.38rem 0.62rem;
+  border-left: 6px solid var(--aula-gold);
+  background: #f8eed5;
+  color: var(--aula-ink);
+  font-size: 0.74em;
+  line-height: 1.14;
+}
+
+.utilization-guidance strong {
+  color: var(--aula-ink);
+}
+
 /* Tabela do exemplo de carga: sete colunas essenciais, sem cortes laterais. */
 .remark-slide table.compact-load-table {
   table-layout: fixed;

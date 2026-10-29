@@ -84,6 +84,9 @@ a capacidade dos recursos.
   sala, incluindo cálculos, interpretações e critérios sugeridos de correção;
 - separação dos dados dos pedidos e do roteiro do estudo de caso em dois
   slides, preservando a legibilidade.
+- revisão da meta de utilização nos KPIs, substituindo o limite universal de
+  80% por uma faixa definida conforme o papel do recurso e explicando a
+  diferença entre gargalos e recursos não gargalo.
 
 ## Convenções dos exemplos
 
