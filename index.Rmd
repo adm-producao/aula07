@@ -101,11 +101,11 @@ Programação operacional. Máquina livre não basta: precedência, material, fe
 .pull-left[
 ## Ao final da aula
 
-- interpretar um roteiro de produção;
-- calcular carga por ordem e por máquina;
-- aplicar FIFO, MTP, MDE e MFE;
-- comparar fluxo, atraso e utilização;
-- recomendar uma programação coerente com o objetivo.
+- ✅ interpretar um roteiro de produção;
+- ✅ calcular carga por ordem e por máquina;
+- ✅ aplicar FIFO, MTP, MDE e MFE;
+- ✅ comparar fluxo, atraso e utilização;
+- ✅ recomendar uma programação coerente com o objetivo.
 
 ]
 
@@ -223,15 +223,15 @@ Processo de **determinar a ordem** em que os trabalhos/tarefas serão processado
 ## Objetivos Principais:
 
 .pull-left[
-- **Minimizar tempo total** (makespan)
-- **Cumprir prazos** de entrega
-- **Reduzir custos** de estoque
+- ⏱️ **Minimizar tempo total** (makespan)
+- 📅 **Cumprir prazos** de entrega
+- 💰 **Reduzir custos** de estoque
 ]
 
 .pull-right[
-- **Maximizar utilização** de máquinas
-- **Balancear carga** de trabalho
-- **Minimizar atrasos**
+- ⚙️ **Maximizar utilização** de máquinas
+- 📊 **Balancear carga** de trabalho
+- 🎯 **Minimizar atrasos**
 ]
 
 ---
@@ -624,9 +624,9 @@ carga_maquinas <- ordens %>%
   summarise( Num_Ordens = n(), Carga_Total_h = sum(Carga_Total_h), Carga_Setup_h = sum(Carga_Setup_h), Carga_Proc_h = sum(Carga_Proc_h) ) %>% 
   mutate( Capacidade_h = 20,
           Utilizacao_pct = round((Carga_Total_h / Capacidade_h) * 100, 1),
-          Status = case_when( Utilizacao_pct > 100 ~ "Sobrecarga",
-                              Utilizacao_pct > 85 ~ "Alta",
-                              TRUE ~ "Normal" ) )
+          Status = case_when( Utilizacao_pct > 100 ~ "🔴 Sobrecarga",
+                              Utilizacao_pct > 85 ~ "🟡 Alta",
+                              TRUE ~ "🟢 Normal" ) )
 carga_maquinas %>%
   transmute(
     `Máquina` = Maquina,
@@ -687,7 +687,11 @@ ggplot(
   ) +
   coord_flip() +
   scale_fill_manual(
-    values = c("Sobrecarga" = "#e74c3c", "Alta" = "#f39c12", "Normal" = "#27ae60")
+    values = c(
+      "🔴 Sobrecarga" = "#e74c3c",
+      "🟡 Alta" = "#f39c12",
+      "🟢 Normal" = "#27ae60"
+    )
   ) +
   scale_color_manual(
     name = "Linhas de referência",
@@ -760,20 +764,20 @@ carga_maquinas %>% select(Maquina, Carga_Setup_h, Carga_Proc_h) %>% pivot_longer
 
 .pull-left[
 ### Quando há Sobrecarga:
-- **Realocação** de ordens
-- **Horas extras** programadas
-- **Subcontratação** externa
-- **Reprogramação** de prazos
-- **Investimento** em capacidade
+- 🔄 **Realocação** de ordens
+- ⏰ **Horas extras** programadas
+- 👥 **Subcontratação** externa
+- 📅 **Reprogramação** de prazos
+- 🆕 **Investimento** em capacidade
 ]
 
 .pull-right[
 ### Quando há Ociosidade:
-- **Antecipação** de produção
-- **Manutenção preventiva**
-- **Treinamento** de equipe
-- **Melhorias** de processo
-- **Busca** de novos pedidos
+- 📦 **Antecipação** de produção
+- 🔧 **Manutenção preventiva**
+- 📚 **Treinamento** de equipe
+- 🎯 **Melhorias** de processo
+- 🔍 **Busca** de novos pedidos
 ]
 
 ---
@@ -999,15 +1003,15 @@ analise %>% kable(format = "html") %>% kable_styling(bootstrap_options = c("stri
 
 .midi[
 ## Recomendações:
-- Reduzir setup em M1 libera margem para novas ordens.
-- Hora extra não é necessária pela carga agregada deste caso.
-- O programa ainda deve verificar conflitos simultâneos e precedências entre máquinas.
+- ✅ Reduzir setup em M1 libera margem para novas ordens.
+- ✅ Hora extra não é necessária pela carga agregada deste caso.
+- ✅ O programa ainda deve verificar conflitos simultâneos e precedências entre máquinas.
 ]
 
 ---
 
 
-# Ferramentas e alcance da programação
+# 🔧 Ferramentas e alcance da programação
 
 | Ferramenta | Uso adequado | Limitação principal |
 |---|---|---|
@@ -1025,33 +1029,33 @@ analise %>% kable(format = "html") %>% kable_styling(bootstrap_options = c("stri
 .midi[
 .pull-left[
 ## Planejamento
-- **Dados precisos:** tempos, capacidades e restrições
-- **Comunicação:** integração entre PCP, produção e vendas
-- **Flexibilidade:** contingências previstas
-- **Documentação:** registro de decisões e mudanças
+- ✅ **Dados precisos:** tempos, capacidades e restrições
+- ✅ **Comunicação:** integração entre PCP, produção e vendas
+- ✅ **Flexibilidade:** contingências previstas
+- ✅ **Documentação:** registro de decisões e mudanças
 
 ## Execução
-- **Monitoramento:** acompanhar o progresso real
-- **Agilidade:** reagir a imprevistos
-- **Priorização:** concentrar atenção no trabalho crítico
+- ✅ **Monitoramento:** acompanhar o progresso real
+- ✅ **Agilidade:** reagir a imprevistos
+- ✅ **Priorização:** concentrar atenção no trabalho crítico
 ]
 
 .pull-right[
 ## Análise
-- **KPIs claros:** utilização e pontualidade
-- **Revisões:** analisar desvios periodicamente
-- **Melhoria contínua:** ajustar métodos
+- ✅ **KPIs claros:** utilização e pontualidade
+- ✅ **Revisões:** analisar desvios periodicamente
+- ✅ **Melhoria contínua:** ajustar métodos
 
 ## Tecnologia
-- **Automatização:** reduzir trabalho manual
-- **Integração:** conectar os sistemas envolvidos
-- **Visualização:** acompanhar o programa em tempo real
-- **Contingência:** manter alternativas preparadas
+- ✅ **Automatização:** reduzir trabalho manual
+- ✅ **Integração:** conectar os sistemas envolvidos
+- ✅ **Visualização:** acompanhar o programa em tempo real
+- ✅ **Contingência:** manter alternativas preparadas
 ]
 ]
 ---
 
-# Principais KPIs
+# 📊 Principais KPIs
 ```{r kpis, echo=FALSE, message=FALSE, warning=FALSE} 
 kpis <- data.frame(
   KPI = c("Makespan", "Utilização", "OTIF", "Lead Time", "WIP", "Setup Time"),
@@ -1121,18 +1125,18 @@ Uma meta única, como 80%, pode induzir decisões inadequadas. O gargalo determi
 # Conceitos centrais
 .midi[
 .pull-left[
-## Roteiro de produção
+## 📋 Roteiro de produção
 - Documento técnico que define **sequência**, **máquinas**, **tempos** e **precedências**
 - Base para planejamento e controle
 - Deve ser mantido atualizado
 
-## Sequenciamento
+## 🔢 Sequenciamento
 - Ordem de execução das tarefas
 - Regras: **MTP**, **FIFO**, **MDE** e **MFE**
 - Impacto direto em **prazos** e **custos**
 ]
 .pull-right[
-## Carga de máquinas
+## ⚙️ Carga de máquinas
 - Balanceamento entre **demanda** e **capacidade**
 - Identificação de **gargalos** e **ociosidades**
 - Decisões sobre **horas extras**, **subcontratação**, **investimentos**
@@ -1156,7 +1160,7 @@ Uma meta única, como 80%, pode induzir decisões inadequadas. O gargalo determi
 
 .midi[
 .pull-left[
-## Livros recomendados
+## 📚 Livros recomendados
 - **Administração da Produção** - Slack, Chambers & Johnston
 - **Factory Physics** - Hopp & Spearman  
 - **Theory of Constraints** - Goldratt
@@ -1164,13 +1168,13 @@ Uma meta única, como 80%, pode induzir decisões inadequadas. O gargalo determi
 ]
 .pull-right[
 
-## Recursos online
+## 🌐 Recursos online
 - APICS (Association for Supply Chain Management)
 - ISE Magazine (Institute of Industrial Engineers)
 - R for Operations Research
 - Coursera: Operations Management
 
-## Próximos passos
+## 🎓 Próximos passos
 - Simulação de eventos discretos
 - Programação linear e otimização
 - Teoria das Restrições (TOC)

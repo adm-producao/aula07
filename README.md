@@ -87,6 +87,12 @@ a capacidade dos recursos.
 - revisão da meta de utilização nos KPIs, substituindo o limite universal de
   80% por uma faixa definida conforme o papel do recurso e explicando a
   diferença entre gargalos e recursos não gargalo.
+- reinserção dos emoticons da versão original nos objetivos, critérios de
+  sequenciamento, status de carga, estratégias, recomendações, boas práticas
+  e síntese da aula.
+- comparação com a apresentação pública e com o histórico original do projeto,
+  restaurando os ícones de ferramentas e conteúdo analítico nos títulos
+  equivalentes da versão atual.
 
 ## Convenções dos exemplos
 
