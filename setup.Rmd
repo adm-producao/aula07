@@ -27,6 +27,37 @@ dev.off <- function(){
 }
 # countdown
 library(countdown)
+
+# Contador padronizado para atividades em sala.
+# Fica acima do rodapé e da numeração do slide.
+contador_atividade <- function(minutos, id) {
+  countdown::countdown(
+    minutes = minutos,
+    id = id,
+    bottom = "52px",
+    right = "42px",
+    warn_when = 60,
+    start_immediately = FALSE,
+    play_sound = FALSE,
+    font_size = "1.35em",
+    padding = "0.24em 0.48em",
+    border_width = "2px",
+    border_radius = "8px",
+    box_shadow = "0 3px 10px rgba(23, 50, 77, 0.18)",
+    color_border = "#176b87",
+    color_background = "#ffffff",
+    color_text = "#17324d",
+    color_running_background = "#d9edf4",
+    color_running_border = "#176b87",
+    color_running_text = "#17324d",
+    color_warning_background = "#f8eed5",
+    color_warning_border = "#d39b2a",
+    color_warning_text = "#17324d",
+    color_finished_background = "#f3dfe3",
+    color_finished_border = "#ba4a5a",
+    color_finished_text = "#17324d"
+  )
+}
 # conflicted
 library(conflicted)
 conflict_prefer("filter", "dplyr")
@@ -60,7 +91,7 @@ layout: true
   
 <div class="my-footer">
 <span>
-<a href="https://places.education" target="_blank">https://places.education</a>
+Programação da Produção - Aula 07
 </span>
 </div> 
 

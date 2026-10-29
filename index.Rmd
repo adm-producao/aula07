@@ -2,11 +2,11 @@
 title: "Administração da Produção"
 subtitle: "Unidade 07: Programação da produção"
 author: 
-  - <br></br>Renata Oliveira
+  - Renata Oliveira
 output:
   xaringan::moon_reader:
     lib_dir: libs
-    css: ["slides.css", "xaringan-themer.css"]
+    css: ["slides.css", "xaringan-themer.css", "aula07-overrides.css"]
     nature:
       ratio: "16:9"
       highlightLines: true
@@ -62,42 +62,72 @@ xaringanExtra::use_scribble()
 library(tidyverse) 
 library(knitr) 
 library(kableExtra) 
-library(DiagrammeR) 
-library(plotly)
 ```
 
+class: middle, center, inverse
 
-# Objetivos da Aula
+# O plano só vira produção quando alguém decide a sequência
+
+.large[
+Ordens aprovadas disputam máquinas, pessoas, ferramentas e tempo.
+]
+
+---
+
+# Da carteira de pedidos ao chão de fábrica
+
+| Informação | Decisão operacional |
+|---|---|
+| PMP | quais produtos e quantidades precisam ficar prontos |
+| MRP | quais materiais e ordens devem estar disponíveis |
+| roteiro | por quais operações e recursos cada ordem passa |
+| carregamento | quanto trabalho cada recurso receberá |
+| sequenciamento | qual ordem entra primeiro em cada recurso |
+| controle | como reagir a atrasos, falhas e mudanças |
+
+.question[Em qual dessas decisões uma máquina pode estar disponível e, ainda assim, a ordem não poder começar?]
+
+???
+
+**Resposta**
+
+Programação operacional. Máquina livre não basta: precedência, material, ferramental, operador e qualidade também devem estar liberados.
+
+---
+
+
+# Objetivos da aula
 
 .pull-left[
-## O que vamos aprender:
+## Ao final da aula
 
-✅ Conceitos fundamentais de programação da produção
-
-✅ Como criar e analisar roteiros de produção
-
-✅ Técnicas de sequenciamento de operações
-
-✅ Métodos de cálculo de carga de máquinas
+- interpretar um roteiro de produção;
+- calcular carga por ordem e por máquina;
+- aplicar FIFO, MTP, MDE e MFE;
+- comparar fluxo, atraso e utilização;
+- recomendar uma programação coerente com o objetivo.
 
 ]
 
 .pull-right[
-## Por que é importante?
+## Questão orientadora
 
-- **Eficiência operacional**: Maximizar utilização de recursos
+Como transformar uma carteira de ordens em uma sequência executável?
 
-- **Redução de custos**: Minimizar tempos ociosos
+.tip[Uma sequência pode reduzir filas e, ao mesmo tempo, prejudicar um pedido urgente. Por isso, a regra precisa refletir o objetivo da operação.]
 
-- **Cumprimento de prazos**: Planejamento adequado
-
-- **Competitividade**: Otimização dos processos
 ]
+
+???
+
+**Resposta**
+
+Confirmar materiais e roteiros, calcular carga e capacidade, definir prioridades e horários, validar prazos, publicar e acompanhar o programa.
 
 
 ---
 
-# O que é um Roteiro de Produção?
+# Roteiro de produção
 
 ## Definição
 
@@ -120,7 +150,7 @@ O **roteiro de produção** (ou roteiro de fabricação) é um documento técnic
 
 ---
 
-# Componentes de um Roteiro
+# Componentes do roteiro
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 componentes <- data.frame( Componente = c("Operação", "Posto de Trabalho", "Tempo Setup", "Tempo Unitário", "Ferramental", "Precedência"), "Descrição" = c("Descrição da atividade a ser executada", "Máquina ou centro de trabalho responsável", "Tempo de preparação da máquina (min)", "Tempo de processamento por unidade (min)", "Ferramentas e dispositivos", "Operações que devem ser concluídas antes"), Exemplo = c("Tornear eixo Ø50mm", "Torno CNC 01", "15", "3.5", "Placa 3 castanhas", "OP 010") )
@@ -132,7 +162,7 @@ componentes %>%
 
 ---
 
-# Exemplo Prático: Roteiro de Produção
+# Exemplo prático · Roteiro de produção
 
 **Produto:** Eixo Mecânico  
 **Material:** Aço 1045  
@@ -146,10 +176,45 @@ roteiro %>%
   kable_styling(bootstrap_options = c("striped", "hover"), font_size = 20)
 ```
 
+---
+
+# Leitura gerencial do roteiro
+
+Para o lote de **100 eixos**, a carga do Torno CNC-01 é:
+
+<div class="formula-box">
+(20 + 8,5 × 100) + (10 + 4,2 × 100) = 1.300 min
+</div>
+
+Isso corresponde a **21 h 40 min** de ocupação do torno.
+
+.question[Se o turno disponível tiver 16 horas, o problema deve ser tratado por carregamento, sequenciamento ou aumento de capacidade?]
+
+.tip[O roteiro descreve como fabricar. A carga revela quanto recurso o lote exige.]
+
+???
+
+**Resposta**
+
+Carga de 21 h 40 min para 16 h disponíveis: déficit de 5 h 40 min. Sequenciar não elimina o déficit; é preciso realocar carga, ampliar capacidade, dividir o lote ou rever o prazo.
 
 ---
 
-# Sequenciamento: Conceitos Fundamentais
+# Quatro decisões complementares
+
+| Decisão | Pergunta respondida | Exemplo |
+|---|---|---|
+| roteiro | como a ordem será produzida? | cortar, tornear, furar e inspecionar |
+| carregamento | quanto trabalho vai para cada recurso? | 21 h 40 min no Torno CNC-01 |
+| sequenciamento | qual ordem será processada primeiro? | B antes de E |
+| programação | quando cada operação começa e termina? | B inicia às 8h e termina às 11h |
+
+.decision-note[Uma boa programação combina as quatro decisões.]
+
+
+---
+
+# Fundamentos do sequenciamento
 
 ## O que é?
 
@@ -158,20 +223,20 @@ Processo de **determinar a ordem** em que os trabalhos/tarefas serão processado
 ## Objetivos Principais:
 
 .pull-left[
-- ⏱️ **Minimizar tempo total** (makespan)
-- 📅 **Cumprir prazos** de entrega
-- 💰 **Reduzir custos** de estoque
+- **Minimizar tempo total** (makespan)
+- **Cumprir prazos** de entrega
+- **Reduzir custos** de estoque
 ]
 
 .pull-right[
-- ⚙️ **Maximizar utilização** de máquinas
-- 📊 **Balancear carga** de trabalho
-- 🎯 **Minimizar atrasos**
+- **Maximizar utilização** de máquinas
+- **Balancear carga** de trabalho
+- **Minimizar atrasos**
 ]
 
 ---
 
-# Regras de Sequenciamento
+# Regras de sequenciamento
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 
 regras <- data.frame(
@@ -199,17 +264,136 @@ regras %>%
 A folga estática para um pedido i é calculada no momento inicial (tempo t=0) com a fórmula:
 
 $$\text{Folga Estática}_i = \text{Data de Entrega}_i - \text{Tempo Atual} - \text{Tempo de Processamento}_i$$
+
+.tip[MFE usa a margem disponível depois de descontar o trabalho ainda necessário. Quanto menor a folga, maior a urgência.]
+
 ---
 
-# Exemplo Prático: Sequenciamento MTP
+# Folga estática · conceito
+
+<div class="formula-box">
+\(F_i = d_i - t - p_i\)
+</div>
+
+.midi[
+.pull-left[
+**Variáveis**
+
+- $d_i$: prazo do trabalho;
+- $t$: tempo atual;
+- $p_i$: processamento restante.
+
+**Exemplo A:** prazo = 15 h, $t = 0$ e processamento = 8 h.
+
+$$F_A = 15 - 0 - 8 = 7\text{ h}$$
+]
+
+.pull-right[
+**Interpretação**
+
+- $F_i > 0$: há margem para esperar;
+- $F_i = 0$: o trabalho deve começar agora;
+- $F_i < 0$: o prazo exige alguma ação corretiva.
+
+**Regra MFE:** menor folga significa maior urgência.
+]
+]
+
+<div class="clear-both"></div>
+
+.decision-note[**Por que estática?** O valor só muda quando a folga é recalculada.]
+
+---
+
+# Folga estática · carteira A–E
+
+.small[Em $t=0$, o prazo corresponde à soma da folga com o processamento restante.]
+
+```{r folga-estatica-grafico, echo=FALSE, fig.asp=0.42, out.width="76%", message=FALSE, warning=FALSE}
+folga_grafico <- data.frame(
+  Trabalho = factor(c("A", "B", "C", "D", "E"), levels = rev(c("A", "B", "C", "D", "E"))),
+  Processamento = c(8, 3, 7, 12, 5),
+  Prazo = c(15, 10, 20, 25, 12)
+) %>%
+  mutate(Folga = Prazo - Processamento)
+
+ggplot(folga_grafico, aes(y = Trabalho)) +
+  geom_segment(
+    aes(x = 0, xend = Folga, yend = Trabalho, color = "Folga"),
+    size = 8,
+    lineend = "butt"
+  ) +
+  geom_segment(
+    aes(x = Folga, xend = Prazo, yend = Trabalho, color = "Processamento"),
+    size = 8,
+    lineend = "butt"
+  ) +
+  geom_text(
+    aes(x = Folga / 2, label = paste0(Folga, " h")),
+    color = "#17324d",
+    fontface = "bold",
+    size = 4
+  ) +
+  geom_text(
+    aes(x = Folga + Processamento / 2, label = paste0(Processamento, " h")),
+    color = "white",
+    fontface = "bold",
+    size = 4
+  ) +
+  scale_color_manual(
+    values = c("Folga" = "#a9ddd3", "Processamento" = "#176b87"),
+    breaks = c("Folga", "Processamento")
+  ) +
+  scale_x_continuous(limits = c(0, 26), breaks = seq(0, 25, 5)) +
+  labs(
+    x = "Horas até o prazo",
+    y = "Trabalho",
+    color = NULL
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(
+    legend.position = "bottom",
+    plot.margin = margin(4, 8, 2, 8)
+  )
+```
+
+.tip[A, B e E têm a menor folga: 7 horas. O desempate pode seguir a ordem de chegada.]
+
+???
+
+**Leitura do gráfico**
+
+A, B e E têm folga de 7 h; C e D, 13 h. A regra MFE prioriza A, B e E. Em caso de empate, aplica-se o critério de chegada.
+
+---
+
+# Carteira comum para comparar as regras
+
+Todos os trabalhos estão disponíveis no tempo zero. Tempos e prazos estão em **horas**.
+
+| Trabalho | Processamento | Prazo | Chegada |
+|---|---:|---:|---:|
+| A | 8 | 15 | 1 |
+| B | 3 | 10 | 2 |
+| C | 7 | 20 | 3 |
+| D | 12 | 25 | 4 |
+| E | 5 | 12 | 5 |
+---
+
+# Exemplo prático · Sequenciamento MTP
 ```{r sequenciamento-MTP, echo=FALSE, message=FALSE, warning=FALSE}
 
-# Dados dos trabalhos
-trabalhos <- data.frame( Job = c("A", "B", "C", "D", "E"), Tempo_Proc = c(8, 3, 7, 12, 5), Data_Entrega = c(15, 10, 20, 25, 12) )
+# Dados dos trabalhos, em horas
+trabalhos <- data.frame(
+  Job = c("A", "B", "C", "D", "E"),
+  Tempo_Proc = c(8, 3, 7, 12, 5),
+  Data_Entrega = c(15, 10, 20, 25, 12),
+  Chegada = 1:5
+)
 
 #Aplicando MTP (Shortest Processing Time)
-trabalhos_MTP <- trabalhos %>% 
-   arrange(Tempo_Proc) %>% 
+trabalhos_MTP <- trabalhos %>%
+   arrange(Tempo_Proc, Chegada) %>%
    mutate( Inicio = cumsum(dplyr::lag(Tempo_Proc, default = 0)), Fim = Inicio + Tempo_Proc, Atraso = pmax(0, Fim - Data_Entrega) )
 
 trabalhos_MTP %>% 
@@ -221,21 +405,83 @@ trabalhos_MTP %>%
 
 ---
 
-# Análise do Sequenciamento MTP
+# Análise do sequenciamento MTP
                                
 ```{r metricas-MTP, echo=FALSE, message=FALSE, warning=FALSE}
 
 # Calculando métricas de desempenho
-metricas <- data.frame( Métrica = c("Makespan (tempo total)", "Tempo médio de fluxo", "Atraso médio", "Número de trabalhos atrasados", "Utilização (%)"), Valor = c( max(trabalhos_MTP$Fim), mean(trabalhos_MTP$Fim- trabalhos_MTP$Inicio), mean(trabalhos_MTP$Atraso), sum(trabalhos_MTP$Atraso > 0), round(sum(trabalhos_MTP$Tempo_Proc) / max(trabalhos_MTP$Fim) * 100, 1) ) )
+metricas <- data.frame(
+  Métrica = c("Makespan (h)", "Fluxo médio (h)", "Atraso médio (h)",
+              "Trabalhos atrasados", "Utilização do recurso (%)"),
+  Valor = c(
+    max(trabalhos_MTP$Fim),
+    mean(trabalhos_MTP$Fim),
+    mean(trabalhos_MTP$Atraso),
+    sum(trabalhos_MTP$Atraso > 0),
+    round(sum(trabalhos_MTP$Tempo_Proc) / max(trabalhos_MTP$Fim) * 100, 1)
+  )
+)
 
 metricas %>% 
   kable(format = "html") %>% 
   kable_styling(bootstrap_options = c("striped", "hover"), font_size = 30, full_width = FALSE)
 ```
 
+.small[Como todos os trabalhos chegam no tempo zero, o tempo de fluxo de cada trabalho é igual ao seu instante de conclusão. A utilização resulta em 100% porque o exemplo não inclui ociosidade entre trabalhos.]
+
 ---
 
-# Gráfico de Gantt - Sequenciamento
+# Comparação das regras na mesma carteira
+
+```{r comparacao-regras, echo=FALSE, message=FALSE, warning=FALSE}
+avaliar_regra <- function(dados, nome) {
+  dados %>%
+    mutate(
+      Inicio = cumsum(dplyr::lag(Tempo_Proc, default = 0)),
+      Fim = Inicio + Tempo_Proc,
+      Atraso = pmax(0, Fim - Data_Entrega)
+    ) %>%
+    summarise(
+      Regra = nome,
+      Sequência = paste(Job, collapse = " – "),
+      `Fluxo médio (h)` = round(mean(Fim), 1),
+      `Atraso médio (h)` = round(mean(Atraso), 1),
+      `Atraso máximo (h)` = max(Atraso),
+      Atrasados = sum(Atraso > 0)
+    )
+}
+
+comparacao_regras <- bind_rows(
+  avaliar_regra(arrange(trabalhos, Chegada), "FIFO"),
+  avaliar_regra(arrange(trabalhos, Tempo_Proc, Chegada), "MTP"),
+  avaliar_regra(arrange(trabalhos, Data_Entrega, Chegada), "MDE"),
+  avaliar_regra(
+    trabalhos %>% mutate(Folga = Data_Entrega - Tempo_Proc) %>% arrange(Folga, Chegada),
+    "MFE"
+  )
+)
+
+comparacao_regras %>%
+  kable(format = "html") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"), font_size = 20)
+```
+
+.decision-note[MTP produz o menor fluxo médio. MDE produz o menor atraso médio. A escolha depende do objetivo que a programação deve proteger.]
+
+---
+
+# Decisão de prioridade em contexto
+
+| Situação | Regra inicial plausível | Verificação necessária |
+|---|---|---|
+| fila longa e muitos trabalhos curtos | MTP | pedidos longos podem esperar demais |
+| contratos com datas rígidas | MDE | datas não consideram o esforço restante |
+| urgência depende de prazo e processamento | MFE | a folga muda conforme o tempo avança |
+| transparência pela ordem de chegada | FIFO | pedidos urgentes podem atrasar |
+
+---
+
+# Gráfico de Gantt · Sequenciamento MTP
 ```{r gantt-chart, echo=FALSE, fig.height=5, message=FALSE, warning=FALSE}
 
 #Criando gráfico de Gantt
@@ -243,16 +489,16 @@ trabalhos_MTP %>%
   mutate(Job = factor(Job, levels = rev(Job))) %>% 
   ggplot(aes(y = Job)) + 
   geom_segment(aes(x = Inicio, xend = Fim, yend = Job), size = 10, color = "#3498db") + 
-  geom_text(aes(x = (Inicio + Fim)/2, label = paste0(Tempo_Proc, " min")), color = "white", fontface = "bold") + 
+  geom_text(aes(x = (Inicio + Fim)/2, label = paste0(Tempo_Proc, " h")), color = "white", fontface = "bold") +
   #geom_vline(aes(xintercept = Data_Entrega), linetype = "dashed", color = "red", alpha = 0.6) + 
-  labs(title = "Sequenciamento MTP - Diagrama de Gantt", x = "Tempo (minutos)", y = "Trabalho") + 
+  labs(title = "Sequenciamento MTP - Diagrama de Gantt", x = "Tempo (horas)", y = "Trabalho") +
   theme_minimal(base_size = 14) + 
   theme(plot.title = element_text(face = "bold"))
 ```
 
 ---
 
-# Carga de Máquinas: Conceito
+# Carga de máquinas
 
 ## Definição
 
@@ -265,7 +511,7 @@ trabalhos_MTP %>%
 
 ---
 
-# Carga de Máquinas: Conceito
+# Carga finita e carga infinita
 
 ## Tipos de Carga:
 
@@ -283,9 +529,30 @@ trabalhos_MTP %>%
 - Identifica necessidades
 ]
 
+.tip[Carga infinita expõe a necessidade. Carga finita transforma essa necessidade em um programa que respeita o limite do recurso.]
+
 ---
 
-# Cálculo de Carga de Máquinas
+# Carga finita e carga infinita no mesmo caso
+
+Uma máquina possui **20 horas disponíveis** no horizonte e recebe **24,25 horas** de trabalho.
+
+| Abordagem | Resultado |
+|---|---|
+| carga infinita | registra 24,25 h e evidencia um déficit de 4,25 h |
+| carga finita | limita o programa a 20 h e desloca, divide ou renegocia parte da carga |
+
+.question[Qual decisão precisa ser tomada antes de publicar o programa: hora extra, recurso alternativo, divisão da ordem ou novo prazo?]
+
+???
+
+**Resposta**
+
+Eliminar o déficit de 4,25 h. Priorizar recurso compatível com folga; se inviável, usar hora extra, dividir a ordem ou renegociar o prazo.
+
+---
+
+# Cálculo da carga de máquinas
 
 ## Fórmula Básica:
 
@@ -299,7 +566,7 @@ Onde:
 
 ---
 
-# Cálculo de Carga de Máquinas
+# Taxa de utilização
 
 ## Taxa de Utilização:
 
@@ -307,7 +574,7 @@ $$\text{Utilização (%)} = \frac{\text{Carga Total}}{\text{Capacidade Disponív
 
 ---
 
-# Exemplo Prático: Carga de Máquinas
+# Exemplo prático · Carga de máquinas
 ```{r carga-maquinas-dados, echo=FALSE, message=FALSE, warning=FALSE}
 
 # Definindo ordens de produção
@@ -317,80 +584,208 @@ ordens <- data.frame( Ordem = c("OP-001", "OP-002", "OP-003", "OP-004", "OP-005"
 ordens <- ordens %>% 
    mutate( Carga_Total_h = Setup_h + (Tempo_Unit_h * Quantidade), Carga_Setup_h = Setup_h, Carga_Proc_h = Tempo_Unit_h * Quantidade )
 
-ordens %>% 
-  kable(format = "html") %>% 
-  kable_styling(bootstrap_options = c("striped", "hover"), font_size = 25) %>% 
-  column_spec(1, bold = TRUE, color = "white", background = "#3498db")
+ordens %>%
+  transmute(
+    Ordem,
+    Produto,
+    `Máquina` = Maquina,
+    `Setup (h)` = formatC(Setup_h, format = "f", digits = 2),
+    `Tempo unit. (h)` = formatC(Tempo_Unit_h, format = "f", digits = 2),
+    `Qtd.` = Quantidade,
+    `Carga total (h)` = formatC(Carga_Total_h, format = "f", digits = 2)
+  ) %>%
+  kable(
+    format = "html",
+    align = c("l", "l", "l", "r", "r", "r", "r"),
+    table.attr = 'class="compact-load-table"'
+  ) %>%
+  kable_styling(
+    bootstrap_options = c("hover"),
+    full_width = TRUE,
+    position = "center"
+  ) %>%
+  column_spec(1, bold = TRUE, width = "11%", extra_css = "white-space: nowrap;") %>%
+  column_spec(2, width = "15%") %>%
+  column_spec(3, width = "16%", extra_css = "white-space: nowrap;") %>%
+  column_spec(4, width = "12%") %>%
+  column_spec(5, width = "18%") %>%
+  column_spec(6, width = "9%") %>%
+  column_spec(7, width = "19%")
 
 ```
 ---
 
-# Análise de Carga por Máquina
+# Análise de carga por máquina
 ```{r carga-por-maquina, echo=FALSE, message=FALSE, warning=FALSE}
 
 # Agregando carga por máquina
 carga_maquinas <- ordens %>% 
   group_by(Maquina) %>% 
   summarise( Num_Ordens = n(), Carga_Total_h = sum(Carga_Total_h), Carga_Setup_h = sum(Carga_Setup_h), Carga_Proc_h = sum(Carga_Proc_h) ) %>% 
-  mutate( Capacidade_Semanal_h = 40, #1 turno, 5 dias, 8h/dia
-          Utilizacao_pct = round((Carga_Total_h / Capacidade_Semanal_h) * 100, 1), 
-          Status = case_when( Utilizacao_pct > 100 ~ "🔴 Sobrecarga", 
-                              Utilizacao_pct > 85 ~ "🟡 Alta", 
-                              TRUE ~ "🟢 Normal" ) )
-carga_maquinas %>% 
-  kable(format = "html") %>% 
-  kable_styling(bootstrap_options = c("striped", "hover"), font_size = 20) %>% 
-  column_spec(1, bold = TRUE, color = "white", background = "#3498db")
+  mutate( Capacidade_h = 20,
+          Utilizacao_pct = round((Carga_Total_h / Capacidade_h) * 100, 1),
+          Status = case_when( Utilizacao_pct > 100 ~ "Sobrecarga",
+                              Utilizacao_pct > 85 ~ "Alta",
+                              TRUE ~ "Normal" ) )
+carga_maquinas %>%
+  transmute(
+    `Máquina` = Maquina,
+    `Ordens` = Num_Ordens,
+    `Setup (h)` = formatC(Carga_Setup_h, format = "f", digits = 2),
+    `Proc. (h)` = formatC(Carga_Proc_h, format = "f", digits = 2),
+    `Carga (h)` = formatC(Carga_Total_h, format = "f", digits = 2),
+    `Cap. (h)` = formatC(Capacidade_h, format = "f", digits = 0),
+    `Util. (%)` = formatC(Utilizacao_pct, format = "f", digits = 1),
+    Status
+  ) %>%
+  kable(
+    format = "html",
+    align = c("l", "r", "r", "r", "r", "r", "r", "l"),
+    table.attr = 'class="machine-load-table"'
+  ) %>%
+  kable_styling(
+    bootstrap_options = c("hover"),
+    full_width = TRUE,
+    position = "center"
+  ) %>%
+  column_spec(1, bold = TRUE, extra_css = "white-space: nowrap;") %>%
+  scroll_box(
+    width = "100%",
+    fixed_thead = TRUE,
+    box_css = "border: 1px solid #cfd8de; padding: 0;"
+  )
 
 ```
 ---
 
-# Visualização da Carga de Máquinas
+# Visualização da carga de máquinas
 ```{r plot-carga, echo=FALSE, fig.height=5, message=FALSE, warning=FALSE} 
 
-ggplot(carga_maquinas, aes(x = reorder(Maquina, Utilizacao_pct), y = Utilizacao_pct, fill = Status)) + geom_col(alpha = 0.8) + geom_hline(yintercept = 100, linetype = "dashed", color = "red", size = 1) + geom_hline(yintercept = 85, linetype = "dashed", color = "orange", size = 0.8) + geom_text(aes(label = paste0(Utilizacao_pct, "%")), vjust = -0.5, fontface = "bold") + coord_flip() + scale_fill_manual(values = c("🔴 Sobrecarga" = "#e74c3c", "🟡 Alta" = "#f39c12", "🟢 Normal" = "#27ae60")) + labs(title = "Taxa de Utilização por Máquina", subtitle = "Linha tracejada: capacidade 100%", x = "Máquina", y = "Utilização (%)", fill = "Status") + theme_minimal(base_size = 14) + theme(legend.position = "bottom", plot.title = element_text(face = "bold"))
+referencias_utilizacao <- data.frame(
+  Limite = c(85, 100),
+  Referencia = factor(
+    c("Atenção: 85%", "Capacidade: 100%"),
+    levels = c("Atenção: 85%", "Capacidade: 100%")
+  )
+)
+
+ggplot(
+  carga_maquinas,
+  aes(x = reorder(Maquina, Utilizacao_pct), y = Utilizacao_pct, fill = Status)
+) +
+  geom_col(alpha = 0.8) +
+  geom_hline(
+    data = referencias_utilizacao,
+    aes(yintercept = Limite, color = Referencia, linetype = Referencia),
+    inherit.aes = FALSE,
+    size = 0.9
+  ) +
+  geom_text(
+    aes(label = paste0(Utilizacao_pct, "%")),
+    vjust = -0.5,
+    fontface = "bold"
+  ) +
+  coord_flip() +
+  scale_fill_manual(
+    values = c("Sobrecarga" = "#e74c3c", "Alta" = "#f39c12", "Normal" = "#27ae60")
+  ) +
+  scale_color_manual(
+    name = "Linhas de referência",
+    values = c("Atenção: 85%" = "#f39c12", "Capacidade: 100%" = "#e74c3c")
+  ) +
+  scale_linetype_manual(
+    name = "Linhas de referência",
+    values = c("Atenção: 85%" = "dashed", "Capacidade: 100%" = "dashed")
+  ) +
+  labs(
+    title = "Taxa de utilização no horizonte",
+    subtitle = "Cada máquina possui 20 horas disponíveis",
+    x = "Máquina",
+    y = "Utilização (%)",
+    fill = "Status"
+  ) +
+  guides(
+    fill = guide_legend(order = 1),
+    color = guide_legend(order = 2),
+    linetype = guide_legend(order = 2)
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    legend.position = "bottom",
+    legend.box = "vertical",
+    plot.title = element_text(face = "bold")
+  )
 ```
 ---
 
-# Distribuição da Carga: Setup vs Processamento
+# Diagnóstico da carga
+
+- **Torno-02:** 24,25 h de carga para 20 h disponíveis, com déficit de 4,25 h.
+- **Torno-01:** 14,75 h de carga e 5,25 h de capacidade livre.
+- **Fresa-01:** 7 h de carga e 13 h de capacidade livre.
+
+.question[Alguma operação do Torno-02 pode ser transferida para o Torno-01 sem violar roteiro, ferramental, qualidade ou prazo?]
+
+.decision-note[Capacidade livre em outro recurso só resolve o gargalo quando existe compatibilidade técnica.]
+
+???
+
+**Resposta**
+
+Possivelmente. Os dois produtos aparecem nos dois tornos. Confirmar programa CNC, ferramental, fixação, tolerâncias, operador e setup. A folga de 5,25 h pode absorver o déficit de 4,25 h.
+
+---
+
+# Alternativas para o déficit de 4,25 horas
+
+| Ação | Efeito esperado | Risco ou condição |
+|---|---|---|
+| hora extra no Torno-02 | mantém o roteiro e o prazo | custo adicional e fadiga |
+| transferir operação elegível | usa a folga do Torno-01 | exige ferramental e qualificação |
+| dividir uma ordem | entrega parte no horizonte | aumenta controle e movimentação |
+| renegociar o prazo | elimina a sobrecarga imediata | afeta o nível de serviço |
+
+---
+
+# Composição da carga
 ```{r carga-composicao, echo=FALSE, fig.height=5, message=FALSE, warning=FALSE} 
 
 carga_maquinas %>% select(Maquina, Carga_Setup_h, Carga_Proc_h) %>% pivot_longer(cols = c(Carga_Setup_h, Carga_Proc_h), names_to = "Tipo", values_to = "Horas") %>% mutate(Tipo = recode(Tipo, "Carga_Setup_h" = "Setup", "Carga_Proc_h" = "Processamento")) %>% ggplot(aes(x = Maquina, y = Horas, fill = Tipo)) + geom_col(position = "stack") + geom_text(aes(label = round(Horas, 1)), position = position_stack(vjust = 0.5), color = "white", fontface = "bold") + scale_fill_manual(values = c("Setup" = "#e67e22", "Processamento" = "#3498db")) + labs(title = "Composição da Carga de Trabalho", x = "Máquina", y = "Horas", fill = "Tipo de Atividade") + theme_minimal(base_size = 14) + theme(legend.position = "bottom", plot.title = element_text(face = "bold"))
 ```
 ---
 
-# Balanceamento de Carga
+# Balanceamento de carga
 
 ## Estratégias para Otimizar:
 
 .pull-left[
 ### Quando há Sobrecarga:
-- 🔄 **Realocação** de ordens
-- ⏰ **Horas extras** programadas
-- 👥 **Subcontratação** externa
-- 📅 **Reprogramação** de prazos
-- 🆕 **Investimento** em capacidade
+- **Realocação** de ordens
+- **Horas extras** programadas
+- **Subcontratação** externa
+- **Reprogramação** de prazos
+- **Investimento** em capacidade
 ]
 
 .pull-right[
 ### Quando há Ociosidade:
-- 📦 **Antecipação** de produção
-- 🔧 **Manutenção preventiva**
-- 📚 **Treinamento** de equipe
-- 🎯 **Melhorias** de processo
-- 🔍 **Busca** de novos pedidos
+- **Antecipação** de produção
+- **Manutenção preventiva**
+- **Treinamento** de equipe
+- **Melhorias** de processo
+- **Busca** de novos pedidos
 ]
 
 ---
 
-# Análise de Gargalos
+# Análise de gargalos
 ```{r gargalos, echo=FALSE, message=FALSE, warning=FALSE}
 
 # Identificando gargalos
 gargalos <- carga_maquinas %>% 
   arrange(desc(Utilizacao_pct)) %>% 
   mutate(Horas_Deficit = ifelse(Utilizacao_pct > 100, 
-                                 Carga_Total_h - Capacidade_Semanal_h, 0), 
+                                 Carga_Total_h - Capacidade_h, 0),
          Recomendacao = case_when( Utilizacao_pct > 100 ~ "Necessário ação imediata", 
                                     Utilizacao_pct > 85 ~ "Monitorar de perto", 
                                     Utilizacao_pct < 50 ~ "Verificar oportunidades", 
@@ -403,16 +798,37 @@ gargalos %>%
 ```
 ---
 
-# Caso Completo: Fábrica de Componentes
+# Caso completo · Fábrica de componentes
 
-.pull-left[
-Uma fábrica recebeu 5 pedidos urgentes que devem ser processados em 3 máquinas diferentes.]
+Uma fábrica recebeu cinco pedidos urgentes que devem passar por três máquinas.
 
-.pull-right[
 ```{r caso-completo-dados, echo=FALSE, message=FALSE, warning=FALSE}
 
 # Dados do caso
 pedidos <- data.frame( Pedido = paste0("P", 1:5), Cliente = c("Alpha", "Beta", "Alpha", "Gamma", "Delta"), Prazo_dias = c(5, 3, 6, 4, 5), Prioridade = c(2, 1, 3, 1, 2) )
+
+pedidos %>%
+  kable(
+    format = "html",
+    col.names = c("Pedido", "Cliente", "Prazo (dias)", "Prioridade"),
+    align = c("l", "l", "r", "r"),
+    table.attr = 'class="case-orders-table"'
+  ) %>%
+  kable_styling(
+    bootstrap_options = c("hover"),
+    full_width = TRUE,
+    position = "center"
+  ) %>%
+  column_spec(1, bold = TRUE)
+```
+
+.tip[Prioridade 1 representa a maior urgência. Em caso de empate, o menor prazo vem primeiro.]
+
+---
+
+# Roteiro do estudo de caso
+
+```{r caso-completo-roteiro, echo=FALSE, message=FALSE, warning=FALSE}
 
 # Roteiro de cada pedido
 roteiro_completo <- data.frame( Pedido = rep(paste0("P", 1:5), each = 3), Operacao = rep(1:3, 5), Maquina = c("M1", "M2", "M3"), Setup_h = c(0.5, 0.3, 0.4, 0.5, 0.4, 0.3, 0.3, 0.5, 0.4, 0.5, 0.3, 0.4, 0.3, 0.4, 0.5), Proc_h = c(2.0, 1.5, 1.0, 1.0, 0.8, 1.2, 1.8, 2.2, 1.5, 1.5, 1.0, 1.3, 2.0, 1.5, 2.5) )
@@ -428,16 +844,66 @@ roteiro_completo <- data.frame( Pedido = rep(paste0("P", 1:5), each = 3), Operac
                                                                                                               # P5 Proc_h = c(2.0, 1.5, 1.0, # P1 1.0, 0.8, 1.2, 
                                                                                                               # P2 1.8, 2.2, 1.5, # P3 1.5, 1.0, 1.3, # P4 2.0, 1.5, 2.5) # P5 )
 
-roteiro_completo %>% 
-  kable(format = "html") %>% 
-  kable_styling(bootstrap_options = c("striped", "hover"), font_size = 15) %>% 
-  column_spec(1, bold = TRUE, color = "white", background = "#3498db")
+roteiro_completo %>%
+  transmute(
+    Pedido,
+    `Operação` = Operacao,
+    `Máquina` = Maquina,
+    `Setup (h)` = formatC(Setup_h, format = "f", digits = 2),
+    `Processamento (h)` = formatC(Proc_h, format = "f", digits = 2)
+  ) %>%
+  kable(
+    format = "html",
+    align = c("l", "r", "l", "r", "r"),
+    table.attr = 'class="complete-case-table"'
+  ) %>%
+  kable_styling(
+    bootstrap_options = c("hover"),
+    full_width = TRUE,
+    position = "center"
+  ) %>%
+  column_spec(1, bold = TRUE, extra_css = "white-space: nowrap;") %>%
+  scroll_box(
+    width = "100%",
+    height = "420px",
+    fixed_thead = TRUE,
+    box_css = "border: 1px solid #cfd8de; padding: 0;"
+  )
 
 ```
-]
 ---
 
-# Solução: Sequenciamento por Prioridade
+# Diagnóstico do caso antes da solução
+
+.your-turn[
+**Equipes, 12 min**
+
+1. Calculem a duração total de cada pedido.
+2. Ordenem por prioridade e, em caso de empate, pelo menor prazo.
+3. Calculem início, término e atraso de cada pedido.
+4. Somem a carga de M1, M2 e M3.
+5. Identifiquem a decisão que exige ação imediata.
+]
+
+.question[Uma máquina com a maior carga é sempre um gargalo? Justifiquem usando capacidade e prazo.]
+
+```{r timer-diagnostico-caso, echo=FALSE}
+contador_atividade(12, "timer-diagnostico-caso")
+```
+
+???
+
+**Gabarito**
+
+- Duração total: P1 = 5,7 h; P2 = 4,2 h; P3 = 6,7 h; P4 = 5,0 h; P5 = 7,2 h.
+- Sequência por prioridade e prazo: P2 – P4 – P1 – P5 – P3.
+- Términos: 4,2 h; 9,2 h; 14,9 h; 22,1 h; 28,8 h. Nenhum atraso.
+- Carga por máquina: M1 = 10,4 h; M2 = 8,9 h; M3 = 9,5 h.
+- Com 40 h por máquina, não há sobrecarga. Maior carga não significa gargalo; compare carga, capacidade e prazos.
+
+---
+
+# Solução · Sequenciamento por prioridade
 ```{r caso-sequenciamento, echo=FALSE, message=FALSE, warning=FALSE}
 
 #Calculando tempo total por pedido
@@ -454,14 +920,38 @@ sequencia_final <- tempo_pedidos %>%
   mutate( Ordem_Exec = row_number(), Inicio_h = cumsum(dplyr::lag(Tempo_Total_h, default = 0)), Fim_h = Inicio_h + Tempo_Total_h, Prazo_h = Prazo_dias * 8, Atraso_h = pmax(0, Fim_h - Prazo_h))
 
 
-sequencia_final %>% 
-  kable(format = "html") %>% 
-  kable_styling(bootstrap_options = c("striped", "hover"), font_size = 20) %>% 
-  column_spec(1, bold = TRUE, color = "white", background = "#3498db")
+sequencia_final %>%
+  transmute(
+    `Ordem` = Ordem_Exec,
+    Pedido,
+    Cliente,
+    `Prioridade` = Prioridade,
+    `Duração (h)` = formatC(Tempo_Total_h, format = "f", digits = 1),
+    `Início (h)` = formatC(Inicio_h, format = "f", digits = 1),
+    `Término (h)` = formatC(Fim_h, format = "f", digits = 1),
+    `Prazo (h)` = formatC(Prazo_h, format = "f", digits = 0),
+    `Atraso (h)` = formatC(Atraso_h, format = "f", digits = 1)
+  ) %>%
+  kable(
+    format = "html",
+    align = c("r", "l", "l", "r", "r", "r", "r", "r", "r"),
+    table.attr = 'class="priority-sequence-table"'
+  ) %>%
+  kable_styling(
+    bootstrap_options = c("hover"),
+    full_width = TRUE,
+    position = "center"
+  ) %>%
+  column_spec(2, bold = TRUE, extra_css = "white-space: nowrap;") %>%
+  scroll_box(
+    width = "100%",
+    fixed_thead = TRUE,
+    box_css = "border: 1px solid #cfd8de; padding: 0;"
+  )
 ```
 ---
 
-# Solução: Carga de Máquinas
+# Solução · Carga de máquinas
 ```{r caso-carga, echo=FALSE, fig.height=4.5, message=FALSE, warning=FALSE}
 
 # Calculando carga por máquina
@@ -480,84 +970,83 @@ ggplot(carga_caso, aes(x = Maquina, y = Carga_Total_h)) +
 ```
 ---
 
-# Resultados e Recomendações
+# Resultados e recomendações
 
 ## Análise:
 ```{r caso-analise, echo=FALSE, message=FALSE, warning=FALSE} 
 
-analise <- data.frame( Métrica = c("Makespan Total", "Taxa Média de Utilização", "Pedidos no Prazo", "Atraso Médio", "Gargalo Identificado"), Valor = c(paste0(round(max(sequencia_final$Fim_h), 1), " horas"), paste0(round(mean(carga_caso$Utilizacao_pct), 1), "%"), paste0(sum(sequencia_final$Atraso_h == 0), "/5"), paste0(round(mean(sequencia_final$Atraso_h), 1), " horas"), carga_caso$Maquina[which.max(carga_caso$Utilizacao_pct)]), Avaliação = c("Dentro do esperado", "Boa utilização", "Atende maioria", "Aceitável", "Requer atenção") )
+analise <- data.frame(
+  Métrica = c("Makespan total", "Utilização média", "Pedidos no prazo",
+              "Atraso médio", "Recurso mais carregado"),
+  Valor = c(
+    paste0(round(max(sequencia_final$Fim_h), 1), " horas"),
+    paste0(round(mean(carga_caso$Utilizacao_pct), 1), "%"),
+    paste0(sum(sequencia_final$Atraso_h == 0), "/5"),
+    paste0(round(mean(sequencia_final$Atraso_h), 1), " horas"),
+    carga_caso$Maquina[which.max(carga_caso$Utilizacao_pct)]
+  ),
+  Avaliação = c(
+    "Ordens cabem no horizonte",
+    "Capacidade agregada não restringe",
+    "Todos atendidos no modelo",
+    "Sem atraso calculado",
+    "Maior carga, sem sobrecarga"
+  )
+)
 
 analise %>% kable(format = "html") %>% kable_styling(bootstrap_options = c("striped", "hover"), font_size = 20)
 ```
 
 .midi[
 ## Recomendações:
-- ✅ Priorizar setup reduzido na máquina gargalo
-- ✅ Considerar horas extras para pedidos urgentes
-- ✅ Monitorar continuamente a carga da M1
+- Reduzir setup em M1 libera margem para novas ordens.
+- Hora extra não é necessária pela carga agregada deste caso.
+- O programa ainda deve verificar conflitos simultâneos e precedências entre máquinas.
 ]
 
 ---
 
 
-# Softwares para Programação da Produção
+# Ferramentas e alcance da programação
 
-.midi[
+| Ferramenta | Uso adequado | Limitação principal |
+|---|---|---|
+| quadro ou planilha | problema pequeno, regras claras e revisão rápida | controle manual cresce com o número de ordens |
+| ERP e módulo de produção | ordens, materiais, roteiros e apontamentos | pode não otimizar a sequência detalhada |
+| APS | sequenciamento com capacidade finita, setups, calendários e alternativas | depende de dados confiáveis e regras bem configuradas |
+| simulação ou otimização | comparação de cenários e restrições complexas | o modelo precisa representar a operação real |
 
-.pull-left[
-## Softwares Comerciais
-- **SAP PP** - Planejamento e Controle
-- **Oracle SCM** - Supply Chain
-- **Preactor APS** - Scheduling avançado
-- **AspenTech** - Otimização
-
-## Open Source / R
-- **simmer** - Simulação discreta
-- **rDEA** - Análise de eficiência
-- **optaplanner** - Otimização
-- **scheduleR** - Scheduling
-]
-
-.pull-right[
-## Planilhas e Ferramentas Leves
-- **Excel** com Solver
-- **Google Sheets** + Scripts
-- **Microsoft Project**
-- **Ganttify**
-- **Monday.com**
-
-]
-]
+.tip[**APS — Advanced Planning and Scheduling (Planejamento e Programação Avançados):** transforma as ordens planejadas pelo MRP em um programa detalhado e viável, respeitando capacidade real, materiais, setups e calendários.]
 
 ---
 
-# Princípios para Boa Programação
+# Princípios para uma boa programação
 
 .midi[
 .pull-left[
 ## Planejamento
-✅ **Dados precisos**: Tempos, capacidades, restrições    
-✅ **Comunicação**: Entre PCP, produção e vendas   
-✅ **Flexibilidade**: Prever contingências   
-✅ **Documentação**: Registrar decisões e mudanças   
+- **Dados precisos:** tempos, capacidades e restrições
+- **Comunicação:** integração entre PCP, produção e vendas
+- **Flexibilidade:** contingências previstas
+- **Documentação:** registro de decisões e mudanças
 
 ## Execução
-✅ **Monitoramento**: Acompanhar progresso real   
-✅ **Agilidade**: Reagir a imprevistos   
-✅ **Priorização**: Focar no crítico   
+- **Monitoramento:** acompanhar o progresso real
+- **Agilidade:** reagir a imprevistos
+- **Priorização:** concentrar atenção no trabalho crítico
 ]
 
 .pull-right[
 ## Análise
-✅ **KPIs claros**: Oilização, pontualidade   
-✅ **Revisões**: Analisar desvios periodicamente   
-✅ **Melhoria contínua**: Ajustar métodos
+- **KPIs claros:** utilização e pontualidade
+- **Revisões:** analisar desvios periodicamente
+- **Melhoria contínua:** ajustar métodos
 
 ## Tecnologia
-✅ **Automatização**: Reduzir trabalho manual   
-✅ **Integração**: Sistemas conversando   
-✅ **Visualização**: Dashboards em tempo real   
-✅ **Backup**: Planos B e C
+- **Automatização:** reduzir trabalho manual
+- **Integração:** conectar os sistemas envolvidos
+- **Visualização:** acompanhar o programa em tempo real
+- **Contingência:** manter alternativas preparadas
 ]
 ]
 ---
@@ -595,51 +1084,45 @@ kpis %>% kable(format = "html") %>% kable_styling(bootstrap_options = c("striped
 ]]
 ---
 
-# Principais Conceitos
+# Conceitos centrais
 .midi[
 .pull-left[
-## 📋 Roteiro de Produção
+## Roteiro de produção
 - Documento técnico que define **sequência**, **máquinas**, **tempos** e **precedências**
 - Base para planejamento e controle
 - Deve ser mantido atualizado
 
-## 🔢 Sequenciamento
+## Sequenciamento
 - Ordem de execução das tarefas
-- Regras: **MTP**, **FIFO**, **MDE**, **MFE**, etc.
+- Regras: **MTP**, **FIFO**, **MDE** e **MFE**
 - Impacto direto em **prazos** e **custos**
 ]
 .pull-right[
-## ⚙️ Carga de Máquinas
+## Carga de máquinas
 - Balanceamento entre **demanda** e **capacidade**
 - Identificação de **gargalos** e **ociosidades**
 - Decisões sobre **horas extras**, **subcontratação**, **investimentos**
 ]]
 ---
 
-# Ferramentas Apresentadas
-.midi[
-.pull-left[
-## 🔧 Práticas
-- Cálculo manual de sequenciamento
-- Planilhas de carga de máquinas
-- Diagramas de Gantt
-- Análise de KPIs
-]
-.pull-right[
+# Protocolo para publicar o programa
 
-## 📊 Analíticas
-- Métricas de desempenho
-- Identificação de gargalos
-- Simulação de cenários
-- Otimização de decisões
-]]
+1. confirmar ordens, materiais e roteiros;
+2. calcular a carga por recurso no horizonte;
+3. comparar carga com capacidade disponível;
+4. escolher a regra de prioridade coerente com o objetivo;
+5. calcular início, término, fluxo e atraso;
+6. tratar sobrecargas e restrições técnicas;
+7. comunicar o programa e acompanhar a execução.
+
+.decision-note[Um programa só é executável quando respeita materiais, precedências, capacidade e calendário.]
 ---
 
-# Para Saber Mais
+# Para saber mais
 
 .midi[
 .pull-left[
-## 📚 Livros Recomendados
+## Livros recomendados
 - **Administração da Produção** - Slack, Chambers & Johnston
 - **Factory Physics** - Hopp & Spearman  
 - **Theory of Constraints** - Goldratt
@@ -647,13 +1130,13 @@ kpis %>% kable(format = "html") %>% kable_styling(bootstrap_options = c("striped
 ]
 .pull-right[
 
-## 🌐 Recursos Online
+## Recursos online
 - APICS (Association for Supply Chain Management)
 - ISE Magazine (Institute of Industrial Engineers)
 - R for Operations Research
 - Coursera: Operations Management
 
-## 🎓 Próximos Passos
+## Próximos passos
 - Simulação de eventos discretos
 - Programação linear e otimização
 - Teoria das Restrições (TOC)
@@ -663,8 +1146,18 @@ kpis %>% kable(format = "html") %>% kable_styling(bootstrap_options = c("striped
 ---
 class: center, middle
 
-.huge[
-**DÚVIDAS?**
+# Fechamento
+
+.large[
+A melhor sequência depende do objetivo, e a melhor regra precisa ser testada com indicadores.
 ]
+
+.question[Qual decisão da aula mudaria primeiro se uma máquina quebrasse durante o turno?]
+
+???
+
+**Resposta**
+
+A programação muda primeiro. Atualizar a capacidade, identificar ordens afetadas e resequenciar; depois, revisar prioridades e prazos se necessário.
 
 

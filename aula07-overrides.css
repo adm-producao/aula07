@@ -1,0 +1,345 @@
+:root {
+  --aula-ink: #17324d;
+  --aula-blue: #176b87;
+  --aula-blue-light: #d9edf4;
+  --aula-teal: #1f8a70;
+  --aula-gold: #d39b2a;
+  --aula-paper: #faf9f6;
+  --aula-line: #cfd8de;
+  --aula-rose: #ba4a5a;
+}
+
+html { font-size: 21px; }
+
+body,
+.remark-slide-content {
+  color: var(--aula-ink);
+  font-family: "Source Sans Pro", Arial, sans-serif;
+}
+
+.remark-slide-content {
+  background: var(--aula-paper);
+  font-size: 1.22rem;
+  line-height: 1.22;
+  padding: 1.2rem 3rem 1.9rem 3rem;
+}
+
+.remark-slide-content h1,
+.remark-slide-content h2,
+.remark-slide-content h3 {
+  color: var(--aula-ink);
+  line-height: 1.04;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.remark-slide-content h1 {
+  font-family: "Yanone Kaffeesatz", Arial, sans-serif;
+  font-size: 2.65rem;
+  margin-top: 0;
+  margin-bottom: 0.65rem;
+  padding-bottom: 0.22rem;
+  border-bottom: 3px solid rgba(31, 138, 112, 0.35);
+}
+
+.remark-slide-content h2 {
+  font-family: "Source Sans Pro", Arial, sans-serif;
+  font-size: 1.53rem;
+  font-weight: 700;
+  margin-top: 0.45rem;
+  margin-bottom: 0.25rem;
+}
+
+.remark-slide-content h3 {
+  font-family: "Source Sans Pro", Arial, sans-serif;
+  font-size: 1.32rem;
+  font-weight: 700;
+}
+
+.title-slide,
+.inverse {
+  background: #17324d;
+  color: #ffffff;
+}
+
+.title-slide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.title-slide h1,
+.title-slide h2,
+.title-slide h3,
+.inverse h1,
+.inverse h2,
+.inverse h3 {
+  color: #ffffff;
+  border-bottom: 0;
+}
+
+.title-slide h1,
+.title-slide h2,
+.title-slide h3,
+.title-slide p {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center !important;
+}
+
+.title-slide h1 { font-size: 3.45rem; }
+.title-slide h2 { color: #a9ddd3; font-size: 2rem; }
+.title-slide h3 { color: #f0c56b; font-size: 1.42rem; }
+
+.inverse.center h1 {
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.pull-left,
+.pull-right {
+  width: 48%;
+}
+
+.pull-right ~ * { clear: both; }
+
+.clear-both {
+  clear: both;
+  height: 0;
+}
+
+ul, ol {
+  padding-left: 1.25em;
+  margin-top: 0.35rem;
+  margin-bottom: 0.45rem;
+}
+
+li { margin-bottom: 0.22rem; }
+
+strong { color: var(--aula-rose); }
+
+.large { font-size: 1.42em; }
+.midi { font-size: 0.92em; }
+.small { font-size: 0.82em; }
+
+.question,
+.your-turn,
+.tip,
+.decision-note {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  color: var(--aula-ink) !important;
+  font-weight: 400 !important;
+  line-height: 1.2;
+  padding: 0.55rem 0.8rem;
+  margin: 0.6rem 0;
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
+.question *,
+.your-turn *,
+.tip *,
+.decision-note * {
+  color: var(--aula-ink) !important;
+  font-family: "Source Sans Pro", Arial, sans-serif !important;
+  font-size: 1em !important;
+  font-weight: 400 !important;
+  font-style: normal !important;
+}
+
+.question {
+  border-left: 7px solid var(--aula-teal);
+  background: #e5f2ee;
+}
+
+.your-turn {
+  border-left: 7px solid var(--aula-blue);
+  background: var(--aula-blue-light);
+}
+
+.your-turn strong,
+.question strong,
+.tip strong,
+.decision-note strong {
+  color: var(--aula-ink) !important;
+}
+
+.tip,
+.decision-note {
+  border-left: 7px solid var(--aula-gold);
+  background: #f8eed5;
+}
+
+.formula-box {
+  width: 78%;
+  color: var(--aula-ink);
+  background: #ffffff;
+  border-top: 3px solid var(--aula-teal);
+  border-bottom: 3px solid var(--aula-teal);
+  font-size: 1.35em;
+  margin: 0.85rem auto;
+}
+
+.remark-slide table,
+.remark-slide table.dataTable {
+  width: 100%;
+  margin: 0.45rem auto;
+  border-collapse: collapse;
+  border: 0;
+  font-size: 0.92em !important;
+  line-height: 1.12;
+  color: var(--aula-ink) !important;
+  background: #ffffff !important;
+}
+
+.remark-slide table thead,
+.remark-slide table thead tr,
+.remark-slide table thead th {
+  color: #ffffff !important;
+  background: var(--aula-ink) !important;
+  border: 0 !important;
+}
+
+.remark-slide table th,
+.remark-slide table td {
+  padding: 0.32rem 0.45rem !important;
+  border-bottom: 1px solid var(--aula-line) !important;
+  vertical-align: middle;
+}
+
+.remark-slide table tbody tr,
+.remark-slide table tbody tr:nth-child(odd),
+.remark-slide table tbody tr:nth-child(even),
+.remark-slide table.table-striped tbody tr,
+.remark-slide table.table-striped tbody tr:nth-of-type(odd),
+.remark-slide table.table-striped tbody tr:nth-of-type(even),
+table.dataTable.display tbody tr.odd,
+table.dataTable.display tbody tr.even {
+  color: var(--aula-ink) !important;
+  background: #ffffff !important;
+}
+
+.remark-slide table tbody tr:hover,
+.remark-slide table.table-hover tbody tr:hover {
+  color: var(--aula-ink) !important;
+  background: #eef6f8 !important;
+}
+
+/* Tabela do exemplo de carga: sete colunas essenciais, sem cortes laterais. */
+.remark-slide table.compact-load-table {
+  table-layout: fixed;
+  font-size: 0.8em !important;
+  line-height: 1.08;
+}
+
+.remark-slide table.compact-load-table th,
+.remark-slide table.compact-load-table td {
+  padding: 0.28rem 0.32rem !important;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+.remark-slide table.compact-load-table th {
+  white-space: normal;
+}
+
+/* Tabelas da análise por máquina e do caso completo. */
+.remark-slide table.machine-load-table,
+.remark-slide table.case-orders-table,
+.remark-slide table.complete-case-table,
+.remark-slide table.priority-sequence-table {
+  margin: 0 auto;
+  table-layout: fixed;
+  font-size: 0.78em !important;
+  line-height: 1.08;
+}
+
+.remark-slide table.machine-load-table {
+  min-width: 820px;
+}
+
+.remark-slide table.case-orders-table {
+  width: 78% !important;
+}
+
+.remark-slide table.complete-case-table {
+  min-width: 720px;
+}
+
+.remark-slide table.priority-sequence-table {
+  min-width: 980px;
+  font-size: 0.74em !important;
+}
+
+.remark-slide table.machine-load-table th,
+.remark-slide table.machine-load-table td,
+.remark-slide table.case-orders-table th,
+.remark-slide table.case-orders-table td,
+.remark-slide table.complete-case-table th,
+.remark-slide table.complete-case-table td,
+.remark-slide table.priority-sequence-table th,
+.remark-slide table.priority-sequence-table td {
+  padding: 0.26rem 0.34rem !important;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+.remark-slide table.machine-load-table thead th,
+.remark-slide table.complete-case-table thead th,
+.remark-slide table.priority-sequence-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.remark-slide-content img {
+  display: block;
+  max-width: 100%;
+  max-height: 475px;
+  object-fit: contain;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.remark-slide-content pre,
+.remark-slide-content code {
+  font-size: 0.82em;
+}
+
+.remark-slide-number .progress-bar {
+  background: var(--aula-gold);
+}
+
+.remark-slide-content::after { content: none; }
+
+div.my-footer {
+  border-top: 0;
+  bottom: 0;
+  left: 3rem;
+  right: 3rem;
+  height: 34px;
+  width: auto;
+}
+
+div.my-footer span {
+  bottom: 8px;
+  left: 0;
+  color: #687786;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.inverse div.my-footer span,
+.title-slide div.my-footer span { color: #b7c8d6; }
+
+@media print {
+  .remark-slide-content { background: var(--aula-paper) !important; }
+}

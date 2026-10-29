@@ -231,6 +231,28 @@ div.my-footer a {
   border-left: solid 5px var(--light-blue);
 }
 
+.formula-box {
+  margin: 1.2rem auto;
+  padding: 0.7rem 1rem;
+  width: 82%;
+  text-align: center;
+  font-size: 150%;
+  font-weight: 600;
+  color: var(--dark-blue);
+  background-color: var(--beige);
+  border-top: 2px solid var(--green);
+  border-bottom: 2px solid var(--green);
+}
+
+.decision-note {
+  border-left: solid 5px var(--pink);
+  background-color: var(--pink-faint);
+  color: #1c3834;
+  font-weight: 600;
+  margin-top: 0.8rem;
+  padding: 0.45rem 0.8rem;
+}
+
 
 /* Quotes */
 blockquote {
