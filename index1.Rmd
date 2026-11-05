@@ -140,7 +140,7 @@ componentes %>%
 **Material:** Aço 1045  
 **Quantidade:** 100 unidades
 
-```{r echo_2=FALSE, message=FALSE, warning=FALSE}
+```{r echo=FALSE, message=FALSE, warning=FALSE}
 roteiro <- data.frame( Op = c("010", "020", "030", "040", "050"), "Descrição" = c("Cortar barra", "Tornear desbaste", "Tornear acabamento", "Furar centro", "Inspeção dimensional"), "Máquina" = c("Serra", "Torno CNC-01", "Torno CNC-01", "Furadeira", "Sala metrologia"), Setup_min = c(5, 20, 10, 15, 0), Tempo_Unit_min = c(2.0, 8.5, 4.2, 3.0, 2.5), "Precedência" = c("-", "010", "020", "030", "040") )
 
 roteiro %>% 
@@ -184,7 +184,7 @@ Processo de **determinar a ordem** em que os trabalhos/tarefas serão processado
 ---
 
 # Regras de Sequenciamento
-```{r echo_3=FALSE, message=FALSE, warning=FALSE}
+```{r echo=FALSE, message=FALSE, warning=FALSE}
 
 regras <- data.frame( Regra = c("FCFS", "SPT", "EDD", "LPT", "CR", "SLACK"), Nome = c("First Come, First Served", "Shortest Processing Time", "Earliest Due Date", "Longest Processing Time", "Critical Ratio", "Menor Folga"), "Característica" = c("Ordem de chegada", "Menor tempo de processamento primeiro", "Menor data de entrega primeiro", "Maior tempo de processamento primeiro", "Razão entre tempo até entrega e tempo restante", "Menor tempo de folga primeiro"), "Aplicação" = c("Simples, justo", "↓ Tempo médio fila", "↓ Atraso máximo", "Tarefas longas", "Urgência dinâmica", "Urgência estática") )
 

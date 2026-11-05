@@ -11,7 +11,7 @@
     <script src="libs/panelset/panelset.js"></script>
     <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
     <script src="libs/tile-view/tile-view.js"></script>
-    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"e2e70b78a291464a892faf34e4b30e6d","expires":1}</script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"e05d3f48235245e1829ee81375b9bc70","expires":1}</script>
     <script src="libs/himalaya/himalaya.js"></script>
     <script src="libs/js-cookie/js.cookie.js"></script>
     <link href="libs/editable/editable.css" rel="stylesheet" />
@@ -217,15 +217,6 @@ O **roteiro de produção** (ou roteiro de fabricação) é um documento técnic
 **Material:** Aço 1045  
 **Quantidade:** 100 unidades
 
-
-``` r
-roteiro &lt;- data.frame( Op = c("010", "020", "030", "040", "050"), "Descrição" = c("Cortar barra", "Tornear desbaste", "Tornear acabamento", "Furar centro", "Inspeção dimensional"), "Máquina" = c("Serra", "Torno CNC-01", "Torno CNC-01", "Furadeira", "Sala metrologia"), Setup_min = c(5, 20, 10, 15, 0), Tempo_Unit_min = c(2.0, 8.5, 4.2, 3.0, 2.5), "Precedência" = c("-", "010", "020", "030", "040") )
-
-roteiro %&gt;% 
-  kable(format = "html", col.names = c("Op", "Descrição", "Máquina", "Setup (min)", "Tempo Unit. (min)", "Precedência")) %&gt;% 
-  kable_styling(bootstrap_options = c("striped", "hover"), font_size = 20)
-```
-
 &lt;table class="table table-striped table-hover" style="font-size: 20px; margin-left: auto; margin-right: auto;"&gt;
  &lt;thead&gt;
   &lt;tr&gt;
@@ -342,30 +333,6 @@ Processo de **determinar a ordem** em que os trabalhos/tarefas serão processado
 ---
 
 # Regras de sequenciamento
-
-``` r
-regras &lt;- data.frame(
-  Regra = c("FIFO", "MTP", "MDE", "MFE"),
-  Nome = c("Primeiro a Entrar, Primeiro a Sair", 
-           "Menor Tempo de Processamento", 
-           "Menor Data de Entrega", 
-           "Menor Folga Estática"),
-  Característica = c("Ordem de chegada das tarefas", 
-                     "Menor tempo de processamento primeiro", 
-                     "Menor data de entrega primeiro", 
-                     "Menor tempo de folga primeiro"),
-  Aplicação = c("Simples e justo", 
-                "↓ Tempo médio na fila", 
-                "↓ Atraso máximo", 
-                "Urgência baseada em folga")
-)
-
-regras %&gt;% 
-  kable(format = "html") %&gt;% 
-  kable_styling(bootstrap_options = c("striped", "hover"), font_size = 30) %&gt;% 
-  column_spec(1, bold = TRUE, color = "white", background = "#3498db")
-```
-
 &lt;table class="table table-striped table-hover" style="font-size: 30px; margin-left: auto; margin-right: auto;"&gt;
  &lt;thead&gt;
   &lt;tr&gt;
