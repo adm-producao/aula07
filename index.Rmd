@@ -6,7 +6,7 @@ author:
 output:
   xaringan::moon_reader:
     lib_dir: libs
-    css: ["slides.css", "xaringan-themer.css", "aula07-overrides.css"]
+    css: ["slides.css", "xaringan-themer.css", "aula07-overrides.css", "ufcimg-slides.css"]
     nature:
       ratio: "16:9"
       highlightLines: true
@@ -17,7 +17,6 @@ output:
            <div class="progress-bar" style="width: calc(%current% / %total% * 100%);">
            </div>
          </div>
-
 ---
 
 ```{r child = "setup.Rmd"}
@@ -168,7 +167,7 @@ componentes %>%
 **Material:** Aço 1045  
 **Quantidade:** 100 unidades
 
-```{r echo=FALSE, message=FALSE, warning=FALSE}
+```{r echo_2=FALSE, message=FALSE, warning=FALSE}
 roteiro <- data.frame( Op = c("010", "020", "030", "040", "050"), "Descrição" = c("Cortar barra", "Tornear desbaste", "Tornear acabamento", "Furar centro", "Inspeção dimensional"), "Máquina" = c("Serra", "Torno CNC-01", "Torno CNC-01", "Furadeira", "Sala metrologia"), Setup_min = c(5, 20, 10, 15, 0), Tempo_Unit_min = c(2.0, 8.5, 4.2, 3.0, 2.5), "Precedência" = c("-", "010", "020", "030", "040") )
 
 roteiro %>% 
@@ -237,7 +236,7 @@ Processo de **determinar a ordem** em que os trabalhos/tarefas serão processado
 ---
 
 # Regras de sequenciamento
-```{r echo=FALSE, message=FALSE, warning=FALSE}
+```{r echo_3=FALSE, message=FALSE, warning=FALSE}
 
 regras <- data.frame(
   Regra = c("FIFO", "MTP", "MDE", "MFE"),
